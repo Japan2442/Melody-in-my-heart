@@ -119,7 +119,8 @@ body::before {
   cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; margin: 0 auto 12px; z-index: 2; position: relative; transition: transform 0.2s;
 }
-.btn-record:active { transform: scale(.95); }
+.btn-record:disabled { background: #cbd5e0; border-color: #e2e8f0; cursor: not-allowed; box-shadow: none; }
+.btn-record:active:not(:disabled) { transform: scale(.95); }
 .btn-record.recording {
   background: linear-gradient(135deg, #c53030 0%, var(--abnormal) 100%);
   border-color: #fed7d7; animation: pulse-btn 1.2s infinite ease-in-out;
@@ -257,10 +258,25 @@ body::before {
         <div class="device-row">
           <div class="device-icon">📡</div>
           <div>
-            <strong>Melody Heart API Server</strong>
+            <strong>ESP32 Heart Hardware</strong>
             <div style="margin-top:4px; display:flex; align-items:center; gap:4px;">
-              <span class="status-dot" id="statusDot"></span>
-              <span class="status-text" id="statusText">กำลังตรวจสอบ...</span>
+              <span class="status-dot" id="espStatusDot"></span>
+              <span class="status-text" id="espStatusText">กำลังตรวจสอบ Wi-Fi...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="device-row">
+          <div class="device-icon">🧠</div>
+          <div>
+            <strong>Melody Heart AI Server</strong>
+            <div style="margin-top:4px; display:flex; align-items:center; gap:4px;">
+              <span class="status-dot" id="serverStatusDot"></span>
+              <span class="status-text" id="serverStatusText">กำลังตรวจสอบ...</span>
             </div>
             <div style="font-size:11px; color:var(--fg-muted); margin-top:3px;" id="serverVersion"></div>
           </div>
@@ -293,16 +309,6 @@ body::before {
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">เกี่ยวกับ AI Model (run_09)</div>
-      <div class="card-body" style="font-size:12px; line-height:1.7; color:var(--fg-muted);">
-        <div>🧠 <strong style="color:var(--fg);">EfficientNet-B0</strong> — Transfer Learning</div>
-        <div>🎵 Log-Mel Spectrogram (sr=2000 Hz, n_mels=64)</div>
-        <div>📊 Accuracy <strong style="color:var(--normal);">93.83%</strong> &nbsp;|&nbsp; AUC <strong style="color:var(--accent);">98.71%</strong></div>
-        <div>📈 MAcc <strong style="color:var(--accent);">95.75%</strong> (Se: 98.99% | Sp: 92.51%)</div>
-      </div>
-    </div>
-
     <div class="disclaimer">
       <strong>⚠️ ข้อควรระวัง</strong>
       ระบบนี้ใช้สำหรับ<strong>คัดกรองเบื้องต้นเท่านั้น</strong> ไม่ใช่การวินิจฉัยโรค
@@ -314,27 +320,33 @@ body::before {
 <div id="page-record" class="page">
   <div class="container">
     <div class="card">
+      <div class="card-header">บันทึกเสียงจากอุปกรณ์ ESP32</div>
       <div class="card-body">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px; font-size:12px;" id="recordConnectionBanner">
+          <span class="status-dot" id="recEspDot"></span>
+          <span id="recEspText" style="font-weight:600; color:var(--fg-muted);">กำลังเชื่อมต่อ Wi-Fi ESP32...</span>
+        </div>
+
         <div class="record-box">
           <div id="liveBadge" class="live-badge">
-            <span class="live-dot"></span> กำลังบันทึกเสียงหัวใจ...
+            <span class="live-dot"></span> กำลังบันทึกเสียงหัวใจจากอุปกรณ์...
           </div>
 
-          <button class="btn-record" id="btnRecord" onclick="toggleRecord()">
+          <button class="btn-record" id="btnRecord" onclick="startEspRecord()" disabled>
             <span class="rec-icon">🎙️</span>
             <span id="btnRecordLabel">START</span>
           </button>
-          <p class="hint-text" id="recordHint">วางเครื่องที่หน้าอก แล้วกดเพื่อเริ่มตรวจ</p>
+          <p class="hint-text" id="recordHint">กรุณาเชื่อมต่อ Wi-Fi "ESP32_Heart_Monitor" ก่อนกดตรวจ</p>
         </div>
 
         <div class="waveform-wrap"><canvas id="waveCanvas"></canvas></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="timer-text" id="timerText">00:00 / 00:30</div>
+        <div class="timer-text" id="timerText">00:00 / 00:03</div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header">หรืออัพโหลดไฟล์เสียง</div>
+      <div class="card-header">หรืออัพโหลดไฟล์เสียง (.wav)</div>
       <div class="card-body">
         <label class="upload-area" for="fileInput">
           <div class="upload-icon">📁</div>
@@ -470,11 +482,12 @@ let currentFile = null;
 let isRecording = false;
 let recordTimer = null;
 let recordSeconds = 0;
-const MAX_RECORD = 30;
+const MAX_RECORD = 3; // อัดสดจาก ESP32 3 วินาที
 let waveAnimFrame = null;
 let scanHistory = [];
-let mediaRecorder = null;
-let audioChunks = [];
+
+const ESP_IP = "http://192.168.4.1";
+const ESP_SAMPLE_RATE = 8000;
 
 (function init() {
   try {
@@ -492,6 +505,9 @@ let audioChunks = [];
   renderHistory();
   checkServer();
   setupWaveCanvas();
+
+  // เช็คสถานะเชื่อมต่อ ESP32 ทุกๆ 2 วินาที
+  setInterval(checkEspConnection, 2000);
 })();
 
 function showPage(id, btn) {
@@ -501,12 +517,13 @@ function showPage(id, btn) {
   if (btn && btn.classList.contains('nav-tab')) btn.classList.add('active');
 }
 
+// เช็คสถานะ AI Server (ngrok)
 async function checkServer() {
-  const dot = document.getElementById('statusDot');
-  const txt = document.getElementById('statusText');
+  const dot = document.getElementById('serverStatusDot');
+  const txt = document.getElementById('serverStatusText');
   const ver = document.getElementById('serverVersion');
   try {
-    const res = await fetch(apiUrl + '/health', { headers: NGROK_HEADERS, signal: AbortSignal.timeout(6000) });
+    const res = await fetch(apiUrl + '/health', { headers: NGROK_HEADERS, signal: AbortSignal.timeout(5000) });
     const data = await res.json();
     dot.className = 'status-dot connected';
     txt.textContent = 'เชื่อมต่อแล้ว (Connected)';
@@ -514,9 +531,31 @@ async function checkServer() {
     ver.textContent = data.model || 'EfficientNet-B0 Ready';
   } catch(e) {
     dot.className = 'status-dot error';
-    txt.textContent = 'ไม่สามารถเชื่อมต่อได้';
+    txt.textContent = 'ไม่สามารถเชื่อมต่อ AI Server ได้';
     txt.className = 'status-text error';
     ver.textContent = 'ตรวจสอบ ngrok URL';
+  }
+}
+
+// เช็คสถานะการเชื่อมต่อ Wi-Fi กับ ESP32
+async function checkEspConnection() {
+  const dot = document.getElementById('espStatusDot');
+  const txt = document.getElementById('espStatusText');
+  const recDot = document.getElementById('recEspDot');
+  const recTxt = document.getElementById('recEspText');
+  const btn = document.getElementById('btnRecord');
+
+  try {
+    const res = await fetch(ESP_IP + '/ping', { signal: AbortSignal.timeout(2000) });
+    if (res.ok) {
+      if (dot) { dot.className = 'status-dot connected'; txt.className = 'status-text connected'; txt.textContent = 'เชื่อมต่อกับ ESP32 สำเร็จ'; }
+      if (recDot) { recDot.className = 'status-dot connected'; recTxt.className = 'status-text connected'; recTxt.textContent = '🟢 เชื่อมต่อ Wi-Fi ESP32 แล้ว พร้อมบันทึก'; }
+      if (!isRecording && btn) btn.disabled = false;
+    } else { throw new Error(); }
+  } catch(e) {
+    if (dot) { dot.className = 'status-dot error'; txt.className = 'status-text error'; txt.textContent = 'ยังไม่ได้เชื่อมต่อ Wi-Fi ESP32'; }
+    if (recDot) { recDot.className = 'status-dot error'; recTxt.className = 'status-text error'; recTxt.textContent = '🔴 ยังไม่ได้เชื่อมต่อ Wi-Fi: ESP32_Heart_Monitor'; }
+    if (!isRecording && btn) btn.disabled = true;
   }
 }
 
@@ -547,133 +586,106 @@ function setupWaveCanvas() {
   draw();
 }
 
-async function toggleRecord() {
-  if (isRecording) {
-    stopRecord();
-  } else {
-    await startRecord();
-  }
-}
+// ดึงสตรีมเสียงสดจากฮาร์ดแวร์ ESP32 มาทำเป็นไฟล์ WAV
+async function startEspRecord() {
+  if (isRecording) return;
+  isRecording = true;
+  recordSeconds = 0;
 
-// แปลงไฟล์เสียงอัดจากเบราว์เซอร์ให้เป็น WAV มาตรฐานอัตโนมัติ
-async function convertBlobToWav(blob) {
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const arrayBuffer = await blob.arrayBuffer();
-  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-  
-  const numOfChan = audioBuffer.numberOfChannels;
-  const length = audioBuffer.length * numOfChan * 2 + 44;
-  const out = new DataView(new ArrayBuffer(length));
-  let channels = [];
-  let sampleRate = audioBuffer.sampleRate;
-  let offset = 0;
-  let pos = 0;
+  document.getElementById('btnRecord').classList.add('recording');
+  document.getElementById('btnRecordLabel').textContent = 'REC';
+  document.getElementById('recordHint').textContent = 'กำลังรับสัญญาณจากอุปกรณ์ ห้ามขยับ...';
+  document.getElementById('liveBadge').classList.add('show');
+  updateTimer();
 
-  function writeString(str) {
-    for (let i = 0; i < str.length; i++) {
-      out.setUint8(pos++, str.charCodeAt(i));
-    }
-  }
-
-  writeString('RIFF');
-  out.setUint32(pos, length - 8, true); pos += 4;
-  writeString('WAVE');
-  writeString('fmt ');
-  out.setUint32(pos, 16, true); pos += 4;
-  out.setUint16(pos, 1, true); pos += 2;
-  out.setUint16(pos, numOfChan, true); pos += 2;
-  out.setUint32(pos, sampleRate, true); pos += 4;
-  out.setUint32(pos, sampleRate * 2 * numOfChan, true); pos += 4;
-  out.setUint16(pos, numOfChan * 2, true); pos += 2;
-  out.setUint16(pos, 16, true); pos += 2;
-  writeString('data');
-  out.setUint32(pos, length - pos - 4, true); pos += 4;
-
-  for (let i = 0; i < audioBuffer.numberOfChannels; i++) {
-    channels.push(audioBuffer.getChannelData(i));
-  }
-
-  while (offset < audioBuffer.length) {
-    for (let i = 0; i < numOfChan; i++) {
-      let sample = Math.max(-1, Math.min(1, channels[i][offset]));
-      sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767) | 0;
-      out.setInt16(pos, sample, true);
-      pos += 2;
-    }
-    offset++;
-  }
-
-  return new Blob([out.buffer], { type: 'audio/wav' });
-}
-
-async function startRecord() {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks = [];
+    const response = await fetch(ESP_IP + '/stream');
+    const reader = response.body.getReader();
+    const totalBytes = ESP_SAMPLE_RATE * 2 * MAX_RECORD;
+    let chunks = [];
+    let receivedLength = 0;
 
-    mediaRecorder.ondataavailable = (event) => {
-      if (event.data.size > 0) audioChunks.push(event.data);
-    };
-
-    mediaRecorder.onstop = async () => {
-      const rawBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
-      
-      showSpinner('กำลังแปลงไฟล์เสียง...');
-      const wavBlob = await convertBlobToWav(rawBlob);
-      hideSpinner();
-
-      currentFile = new File([wavBlob], "heart_record.wav", { type: 'audio/wav' });
-
-      const el = document.getElementById('selectedFile');
-      el.textContent = '🎙️ เสียงอัดสดจากไมโครโฟน (.wav) (' + (currentFile.size/1024).toFixed(1) + ' KB)';
-      el.style.display = 'block';
-      document.getElementById('btnAnalyze').style.display = 'block';
-      toast('บันทึกเสียงสำเร็จ! กดปุ่ม "วิเคราะห์ด้วย AI" ด้านล่าง');
-    };
-
-    mediaRecorder.start();
-    isRecording = true;
-    recordSeconds = 0;
-
-    document.getElementById('btnRecord').classList.add('recording');
-    document.getElementById('btnRecordLabel').textContent = 'STOP';
-    document.getElementById('recordHint').textContent = 'กำลังฟังเสียงหัวใจ... วางเครื่องนิ่งๆ';
-    document.getElementById('liveBadge').classList.add('show');
-
-    updateTimer();
     recordTimer = setInterval(() => {
       recordSeconds++;
       updateTimer();
-      if (recordSeconds >= MAX_RECORD) stopRecord();
     }, 1000);
 
+    while (isRecording) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      receivedLength += value.length;
+      if (receivedLength >= totalBytes || recordSeconds >= MAX_RECORD) {
+        reader.cancel();
+        break;
+      }
+    }
+
+    stopEspRecordProcess(chunks, receivedLength);
   } catch (err) {
     console.error(err);
-    toast('❌ ไม่สามารถเข้าถึงไมโครโฟนได้');
+    stopEspRecordProcess([], 0, true);
+    toast('❌ สตรีมเสียงจาก ESP32 ขัดข้อง');
   }
 }
 
-function stopRecord() {
-  if (!isRecording) return;
+function stopEspRecordProcess(chunks, totalLength, isError = false) {
   isRecording = false;
   clearInterval(recordTimer);
 
-  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-    mediaRecorder.stop();
-    mediaRecorder.stream.getTracks().forEach(track => track.stop());
-  }
-
   document.getElementById('btnRecord').classList.remove('recording');
   document.getElementById('btnRecordLabel').textContent = 'START';
-  document.getElementById('recordHint').textContent = 'วางเครื่องที่หน้าอก แล้วกดเพื่อเริ่มตรวจ';
+  document.getElementById('recordHint').textContent = 'บันทึกเสร็จสิ้น สามารถกดวิเคราะห์ได้เลย';
   document.getElementById('liveBadge').classList.remove('show');
+
+  if (isError || totalLength === 0) return;
+
+  let audioData = new Uint8Array(totalLength);
+  let position = 0;
+  for (let chunk of chunks) {
+    audioData.set(chunk, position);
+    position += chunk.length;
+  }
+
+  let wavHeader = createWavHeader(audioData.length, ESP_SAMPLE_RATE);
+  let wavBlob = new Blob([wavHeader, audioData], { type: 'audio/wav' });
+  currentFile = new File([wavBlob], "esp_heart.wav", { type: 'audio/wav' });
+
+  const el = document.getElementById('selectedFile');
+  el.textContent = '📡 เสียงจาก ESP32 (.wav) (' + (currentFile.size/1024).toFixed(1) + ' KB)';
+  el.style.display = 'block';
+  document.getElementById('btnAnalyze').style.display = 'block';
+  toast('บันทึกเสียงจากฮาร์ดแวร์สำเร็จ!');
 }
 
 function updateTimer() {
   const pct = Math.min((recordSeconds / MAX_RECORD) * 100, 100);
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('timerText').textContent = `00:${String(recordSeconds).padStart(2,'0')} / 00:${MAX_RECORD}`;
+  document.getElementById('timerText').textContent = `00:${String(recordSeconds).padStart(2,'0')} / 00:${String(MAX_RECORD).padStart(2,'0')}`;
+}
+
+function createWavHeader(dataSize, sampleRate) {
+  let buffer = new ArrayBuffer(44);
+  let view = new DataView(buffer);
+  function writeString(view, offset, string) {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  }
+  writeString(view, 0, 'RIFF');
+  view.setUint32(4, 36 + dataSize, true);
+  writeString(view, 8, 'WAVE');
+  writeString(view, 12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true); // PCM
+  view.setUint16(22, 1, true); // Mono
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true); // 16-bit
+  writeString(view, 36, 'data');
+  view.setUint32(40, dataSize, true);
+  return view;
 }
 
 function onFileSelect(e) {
