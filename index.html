@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap">
 
 <style>
-/* ─── Design Tokens ───────────────────────────────────── */
 :root {
   --bg:         #f0f4f8;
   --surface:    #ffffff;
@@ -28,29 +27,6 @@
   --font-en: 'Inter', system-ui, sans-serif;
   --nav-h: 64px;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111827; --surface: #1f2937; --header: #0f1f38; --header-b: #0a1628;
-    --accent: #4299e1; --accent-d: #3182ce;
-    --normal: #48bb78; --normal-bg: #1a2e22; --normal-bd: #276749;
-    --abnormal: #fc8181; --abnormal-bg: #2d1515; --abnormal-bd: #9b2c2c;
-    --warn: #f6e05e; --warn-bg: #2d2510; --warn-bd: #975a16;
-    --fg: #e2e8f0; --fg-muted: #a0aec0; --fg-faint: #4a5568;
-    --border: #374151; --card-shadow: 0 2px 8px rgba(0,0,0,.3);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #111827; --surface: #1f2937; --header: #0f1f38; --header-b: #0a1628;
-  --accent: #4299e1; --accent-d: #3182ce;
-  --normal: #48bb78; --normal-bg: #1a2e22; --normal-bd: #276749;
-  --abnormal: #fc8181; --abnormal-bg: #2d1515; --abnormal-bd: #9b2c2c;
-  --warn: #f6e05e; --warn-bg: #2d2510; --warn-bd: #975a16;
-  --fg: #e2e8f0; --fg-muted: #a0aec0; --fg-faint: #4a5568;
-  --border: #374151; --card-shadow: 0 2px 8px rgba(0,0,0,.3);
-  color-scheme: dark;
-}
-
 *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
@@ -58,9 +34,6 @@ body {
   background: var(--bg);
   color: var(--fg);
   margin: 0;
-  padding-left: max(0px, env(safe-area-inset-left, 0px));
-  padding-right: max(0px, env(safe-area-inset-right, 0px));
-  padding-block: 0;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;
   padding-bottom: calc(var(--nav-h) + 16px);
@@ -75,7 +48,6 @@ body::before {
   z-index: 200;
 }
 
-/* ─── Header ──────────────────────────────────────────── */
 .app-header {
   background: var(--header);
   color: #fff;
@@ -83,233 +55,127 @@ body::before {
   top: env(safe-area-inset-top, 0px);
   z-index: 100;
   border-bottom: 3px solid var(--accent);
-  padding: 10px max(16px, env(safe-area-inset-left, 0px));
+  padding: 10px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.header-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.header-row { display: flex; align-items: center; gap: 12px; }
 .logo {
-  width: 42px; height: 42px;
-  background: var(--accent);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
+  width: 42px; height: 42px; background: var(--accent); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
 }
-.header-text h1 {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: var(--font-en);
-  letter-spacing: .3px;
-}
-.header-text p {
-  margin: 2px 0 0;
-  font-size: 11px;
-  color: #bee3f8;
-  font-weight: 300;
-}
+.header-text h1 { margin: 0; font-size: 15px; font-weight: 700; font-family: var(--font-en); }
+.header-text p { margin: 2px 0 0; font-size: 11px; color: #bee3f8; }
 .contest-badge {
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 6px;
-  font-size: 10px;
-  padding: 3px 8px;
-  margin-top: 4px;
-  display: inline-block;
-  color: #bee3f8;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 6px; font-size: 10px; padding: 2px 6px; margin-top: 4px; display: inline-block; color: #bee3f8;
 }
 .btn-profile-top {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background 0.2s;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff;
+  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer;
 }
-.btn-profile-top:active { background: rgba(255,255,255,0.3); }
 
-/* ─── Nav tabs (Bottom) ───────────────────────────────── */
 .nav-tabs {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  display: flex;
-  background: var(--header-b);
-  border-top: 1px solid rgba(255,255,255,.10);
-  z-index: 100;
+  position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h);
+  display: flex; background: var(--header-b); border-top: 1px solid rgba(255,255,255,.10); z-index: 100;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .nav-tab {
-  flex: 1;
-  border: none;
-  background: none;
-  color: rgba(255,255,255,.55);
-  font-size: 10px;
-  font-family: var(--font-th);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  transition: color .2s;
+  flex: 1; border: none; background: none; color: rgba(255,255,255,.55);
+  font-size: 10px; font-family: var(--font-th); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
 }
 .nav-tab.active { color: #fff; }
 .nav-tab span:first-child { font-size: 20px; }
 
-/* ─── Page views ──────────────────────────────────────── */
 .page { display: none; padding-bottom: 24px; }
 .page.active { display: block; }
 
-/* ─── Cards ───────────────────────────────────────────── */
-.container {
-  padding: 16px max(16px, env(safe-area-inset-left, 0px));
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.card {
-  background: var(--surface);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-}
-.card-header {
-  background: var(--accent-d);
-  color: #fff;
-  padding: 9px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .3px;
-}
+.container { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--card-shadow); overflow: hidden; }
+.card-header { background: var(--accent-d); color: #fff; padding: 9px 16px; font-size: 13px; font-weight: 600; }
 .card-body { padding: 16px; }
 
-/* ─── Device Status Card ──────────────────────────────── */
-.device-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
+.device-row { display: flex; align-items: center; gap: 14px; }
 .device-icon {
-  width: 52px; height: 52px;
-  background: #ebf8ff;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-  border: 2px solid var(--accent);
-  flex-shrink: 0;
+  width: 52px; height: 52px; background: #ebf8ff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 24px; border: 2px solid var(--accent); flex-shrink: 0;
 }
-:root[data-theme="dark"] .device-icon { background: #1e3a4c; }
-.status-dot {
-  display: inline-block;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  margin-right: 5px;
-  vertical-align: middle;
-  background: var(--fg-faint);
-}
+.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; background: var(--fg-faint); }
 .status-dot.connected { background: var(--normal); animation: pulse-dot 2s infinite; }
 .status-dot.error { background: var(--abnormal); }
-@keyframes pulse-dot {
-  0%,100% { opacity: 1; } 50% { opacity: .4; }
-}
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
 .status-text { font-size: 12px; font-weight: 600; color: var(--fg-muted); }
 .status-text.connected { color: var(--normal); }
 .status-text.error { color: var(--abnormal); }
 
-/* ─── Record Card ─────────────────────────────────────── */
-.record-box { text-align: center; padding: 8px 0; }
+.record-box { text-align: center; padding: 8px 0; position: relative; }
 .btn-record {
-  width: 90px; height: 90px;
-  border-radius: 50%;
+  width: 90px; height: 90px; border-radius: 50%;
   background: linear-gradient(135deg, var(--header) 0%, var(--accent-d) 100%);
-  border: 5px solid #ebf8ff;
-  color: #fff;
-  font-weight: 700;
-  font-size: 11px;
-  font-family: var(--font-th);
-  box-shadow: 0 4px 16px rgba(49,130,206,.35);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  margin: 0 auto 12px;
+  border: 5px solid #ebf8ff; color: #fff; font-weight: 700; font-size: 11px;
+  font-family: var(--font-th); box-shadow: 0 4px 16px rgba(49,130,206,.35);
+  cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; margin: 0 auto 12px; z-index: 2; position: relative; transition: transform 0.2s;
 }
-.btn-record:active { transform: scale(.96); }
+.btn-record:active { transform: scale(.95); }
 .btn-record.recording {
   background: linear-gradient(135deg, #c53030 0%, var(--abnormal) 100%);
-  animation: pulse-ring 1.4s infinite;
+  border-color: #fed7d7; animation: pulse-btn 1.2s infinite ease-in-out;
 }
-@keyframes pulse-ring {
-  0%,100% { box-shadow: 0 0 0 0 rgba(229,62,62,.4); }
-  50% { box-shadow: 0 0 0 12px rgba(229,62,62,.0); }
+@keyframes pulse-btn {
+  0% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.6); }
+  70% { box-shadow: 0 0 0 22px rgba(229, 62, 62, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0); }
 }
+
+.live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--abnormal-bg); border: 1px solid var(--abnormal-bd); color: var(--abnormal);
+  padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
+  margin-bottom: 10px; opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s;
+}
+.live-badge.show { opacity: 1; transform: translateY(0); }
+.live-dot {
+  width: 8px; height: 8px; background: var(--abnormal); border-radius: 50%;
+  animation: blink-dot 0.8s infinite alternate;
+}
+@keyframes blink-dot { from { opacity: 0.3; transform: scale(0.8); } to { opacity: 1; transform: scale(1.2); } }
+
 .hint-text { font-size: 12px; color: var(--fg-muted); }
 
 .upload-area {
-  border: 2px dashed var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  cursor: pointer;
-  margin-top: 12px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 2px dashed var(--border); border-radius: 12px; padding: 20px 16px; text-align: center;
+  cursor: pointer; margin-top: 12px; background: var(--bg); transition: border-color 0.2s;
 }
 .upload-area input { display: none; }
-.upload-area p { margin: 4px 0; font-size: 12px; color: var(--fg-muted); }
+.upload-icon { font-size: 32px; margin-bottom: 6px; }
+.upload-text { font-size: 13px; font-weight: 600; color: var(--fg); }
+.upload-sub { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
 
-.waveform-wrap {
-  height: 64px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
+.waveform-wrap { height: 64px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
 #waveCanvas { width: 100%; height: 100%; display: block; }
 .timer-text { text-align: center; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
 .progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
 .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width .1s linear; }
 
-/* ─── Result badge ────────────────────────────────────── */
-.result-badge {
-  border-radius: 12px;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
+.result-badge { border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .result-badge.normal { background: var(--normal-bg); border: 1px solid var(--normal-bd); }
 .result-badge.abnormal { background: var(--abnormal-bg); border: 1px solid var(--abnormal-bd); }
-.result-badge.uncertain { background: var(--warn-bg); border: 1px solid var(--warn-bd); }
 .result-badge.pending { background: var(--bg); border: 1px solid var(--border); }
 .badge-icon {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
   color: #fff; font-size: 16px; font-weight: 700; flex-shrink: 0;
 }
 .normal .badge-icon { background: var(--normal); }
 .abnormal .badge-icon { background: var(--abnormal); }
-.uncertain .badge-icon { background: var(--warn); }
 .pending .badge-icon { background: var(--fg-faint); }
 .badge-info h4 { margin: 0; font-size: 15px; }
 .badge-info p  { margin: 2px 0 0; font-size: 11px; color: var(--fg-muted); }
 .normal .badge-info h4 { color: var(--normal); }
 .abnormal .badge-info h4 { color: var(--abnormal); }
-.uncertain .badge-info h4 { color: var(--warn); }
 
 .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .metric-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; text-align: center; }
@@ -320,68 +186,24 @@ body::before {
 .sub-abnormal { color: var(--abnormal); }
 .sub-muted { color: var(--fg-muted); }
 
-/* ─── AI steps ────────────────────────────────────────── */
-.ai-step { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 12px; color: var(--fg-muted); border-bottom: 1px solid var(--border); }
-.ai-step:last-child { border-bottom: none; }
-.ai-step .step-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--fg-muted); flex-shrink: 0; margin-top: 1px; }
-.ai-step.done .step-dot { background: var(--normal); color: #fff; }
-.ai-step.active .step-dot { background: var(--accent); color: #fff; }
-.ai-step.done { color: var(--fg); }
-.ai-step.active { color: var(--accent); font-weight: 600; }
-
-.spec-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 8px; display: none; }
+.spec-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 8px; display: block; }
 .gauge-container { position: relative; margin: 12px auto 0; max-width: 240px; }
 .gauge-container svg { width: 100%; height: auto; display: block; }
 
-/* ─── Detailed History List ───────────────────────────── */
 .hist-empty { text-align: center; color: var(--fg-muted); font-size: 13px; padding: 24px 0; }
-.history-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-}
-.history-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.history-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--fg);
-}
-.history-details {
-  font-size: 12px;
-  color: var(--fg-muted);
-  display: flex;
-  gap: 12px;
-  margin-bottom: 4px;
-}
-.history-time {
-  font-size: 11px;
-  color: var(--fg-faint);
-}
-.hist-badge {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-}
+.history-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.history-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.history-name { font-size: 15px; font-weight: 700; color: var(--fg); }
+.history-details { font-size: 12px; color: var(--fg-muted); display: flex; gap: 12px; margin-bottom: 4px; }
+.history-time { font-size: 11px; color: var(--fg-faint); }
+.hist-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
 .hist-badge.normal   { background: var(--normal-bg); color: var(--normal); border: 1px solid var(--normal-bd); }
 .hist-badge.abnormal { background: var(--abnormal-bg); color: var(--abnormal); border: 1px solid var(--abnormal-bd); }
-
-/* ─── Footer info ─────────────────────────────────────── */
-.footer-card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 14px 16px; font-size: 11px; line-height: 1.65; color: var(--fg-muted); }
-.footer-card strong { color: var(--fg); }
 
 #toast {
   position: fixed; bottom: calc(var(--nav-h) + 16px); left: 50%; transform: translateX(-50%);
   background: #1a202c; color: #fff; padding: 10px 18px; border-radius: 24px; font-size: 13px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.3); z-index: 300; opacity: 0; transition: opacity .3s; pointer-events: none;
-  white-space: nowrap;
+  z-index: 300; opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap;
 }
 #toast.show { opacity: 1; }
 
@@ -399,7 +221,6 @@ body::before {
 .disclaimer { background: var(--warn-bg); border: 1px solid var(--warn-bd); border-radius: 10px; padding: 10px 14px; font-size: 11px; color: var(--warn); line-height: 1.6; }
 </style>
 
-<!-- ─── App Header ──────────────────────────────────── -->
 <header class="app-header">
   <div class="header-row">
     <div class="logo">♥</div>
@@ -412,7 +233,6 @@ body::before {
   <button class="btn-profile-top" onclick="showPage('profile', document.getElementById('navProfileBtn'))" title="โปรไฟล์ผู้ใช้">👤</button>
 </header>
 
-<!-- ─── Nav Tabs (Bottom) ─────────────────────────────── -->
 <nav class="nav-tabs" role="tablist">
   <button class="nav-tab active" onclick="showPage('home',this)" role="tab" aria-selected="true">
     <span>🏠</span><span>หน้าหลัก</span>
@@ -426,13 +246,10 @@ body::before {
   <button class="nav-tab" onclick="showPage('history',this)" role="tab">
     <span>📋</span><span>ประวัติ</span>
   </button>
-  <!-- Hidden reference for profile nav toggle -->
   <button id="navProfileBtn" style="display:none;" onclick=""></button>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- PAGE: HOME -->
-<!-- ══════════════════════════════════════════════════════ -->
+<!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <div class="container">
     <div class="card">
@@ -493,20 +310,23 @@ body::before {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- PAGE: RECORD -->
-<!-- ══════════════════════════════════════════════════════ -->
+<!-- RECORD PAGE -->
 <div id="page-record" class="page">
   <div class="container">
     <div class="card">
       <div class="card-body">
         <div class="record-box">
+          <div id="liveBadge" class="live-badge">
+            <span class="live-dot"></span> กำลังบันทึกเสียงหัวใจ...
+          </div>
+
           <button class="btn-record" id="btnRecord" onclick="toggleRecord()">
             <span class="rec-icon">🎙️</span>
             <span id="btnRecordLabel">START</span>
           </button>
           <p class="hint-text" id="recordHint">วางเครื่องที่หน้าอก แล้วกดเพื่อเริ่มตรวจ</p>
         </div>
+
         <div class="waveform-wrap"><canvas id="waveCanvas"></canvas></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <div class="timer-text" id="timerText">00:00 / 00:30</div>
@@ -517,20 +337,19 @@ body::before {
       <div class="card-header">หรืออัพโหลดไฟล์เสียง</div>
       <div class="card-body">
         <label class="upload-area" for="fileInput">
-          <div style="font-size:28px;">📂</div>
-          <p style="font-weight:600; color:var(--fg);">เลือกไฟล์ .wav</p>
+          <div class="upload-icon">📁</div>
+          <div class="upload-text">เลือกไฟล์ .wav</div>
+          <div class="upload-sub">รองรับไฟล์เสียงหัวใจดิจิทัล (.wav)</div>
           <input type="file" id="fileInput" accept=".wav,audio/wav" onchange="onFileSelect(event)">
         </label>
-        <div id="selectedFile" style="margin-top:10px; font-size:12px; color:var(--accent); display:none;"></div>
+        <div id="selectedFile" style="margin-top:10px; font-size:12px; color:var(--accent); display:none; text-align:center;"></div>
         <button class="btn-primary" id="btnAnalyze" onclick="analyzeFile()" style="margin-top:12px; display:none;">🔬 วิเคราะห์ด้วย AI</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- PAGE: RESULTS -->
-<!-- ══════════════════════════════════════════════════════ -->
+<!-- RESULTS PAGE -->
 <div id="page-results" class="page">
   <div class="container">
     <div class="card">
@@ -588,9 +407,7 @@ body::before {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- PAGE: HISTORY (Detailed Cards) -->
-<!-- ══════════════════════════════════════════════════════ -->
+<!-- HISTORY PAGE -->
 <div id="page-history" class="page">
   <div class="container">
     <div class="card">
@@ -605,9 +422,7 @@ body::before {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- PAGE: PROFILE (Accessible from top right button) -->
-<!-- ══════════════════════════════════════════════════════ -->
+<!-- PROFILE PAGE -->
 <div id="page-profile" class="page">
   <div class="container">
     <div class="card">
@@ -644,7 +459,6 @@ body::before {
   </div>
 </div>
 
-<!-- Spinner & Toast -->
 <div id="spinner" hidden><div class="spin-ring"></div><div id="spinnerMsg">กำลังวิเคราะห์...</div></div>
 <div id="toast"></div>
 
@@ -659,6 +473,8 @@ let recordSeconds = 0;
 const MAX_RECORD = 30;
 let waveAnimFrame = null;
 let scanHistory = [];
+let mediaRecorder = null;
+let audioChunks = [];
 
 (function init() {
   try {
@@ -716,12 +532,14 @@ function setupWaveCanvas() {
       ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
       ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke(); ctx.setLineDash([]);
     } else {
-      ctx.strokeStyle = '#3182ce'; ctx.lineWidth = 2; ctx.beginPath();
+      ctx.strokeStyle = '#e53e3e'; ctx.lineWidth = 2.5; ctx.beginPath();
       for (let x = 0; x <= W; x++) {
-        const y = H/2 + 0.4 * Math.sin(x*0.04 + t) * H/2;
+        const a1 = 0.5 * Math.sin(x*0.06 + t) * H/2;
+        const a2 = 0.3 * Math.sin(x*0.12 + t*1.5) * H/2;
+        const y = H/2 + a1 + a2;
         x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
-      ctx.stroke(); t += 0.07;
+      ctx.stroke(); t += 0.12;
     }
     waveAnimFrame = requestAnimationFrame(draw);
   }
@@ -729,23 +547,73 @@ function setupWaveCanvas() {
   draw();
 }
 
-function toggleRecord() {
-  if (isRecording) stopRecord();
-  else startRecord();
+async function toggleRecord() {
+  if (isRecording) {
+    stopRecord();
+  } else {
+    await startRecord();
+  }
 }
-function startRecord() {
-  isRecording = true; recordSeconds = 0;
-  document.getElementById('btnRecord').classList.add('recording');
-  document.getElementById('btnRecordLabel').textContent = 'STOP';
-  document.getElementById('recordHint').textContent = 'กำลังบันทึก...';
-  recordTimer = setInterval(() => { recordSeconds++; updateTimer(); if (recordSeconds >= MAX_RECORD) stopRecord(); }, 1000);
+
+async function startRecord() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = (event) => {
+      if (event.data.size > 0) audioChunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+      currentFile = new File([audioBlob], "heart_record.wav", { type: 'audio/wav' });
+
+      const el = document.getElementById('selectedFile');
+      el.textContent = '🎙️ เสียงอัดสดจากไมโครโฟน (' + (currentFile.size/1024).toFixed(1) + ' KB)';
+      el.style.display = 'block';
+      document.getElementById('btnAnalyze').style.display = 'block';
+      toast('บันทึกเสียงสำเร็จ! กดปุ่ม "วิเคราะห์ด้วย AI" ด้านล่าง');
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+    recordSeconds = 0;
+
+    document.getElementById('btnRecord').classList.add('recording');
+    document.getElementById('btnRecordLabel').textContent = 'STOP';
+    document.getElementById('recordHint').textContent = 'กำลังฟังเสียงหัวใจ... วางเครื่องนิ่งๆ';
+    document.getElementById('liveBadge').classList.add('show');
+
+    updateTimer();
+    recordTimer = setInterval(() => {
+      recordSeconds++;
+      updateTimer();
+      if (recordSeconds >= MAX_RECORD) stopRecord();
+    }, 1000);
+
+  } catch (err) {
+    console.error(err);
+    toast('❌ ไม่สามารถเข้าถึงไมโครโฟนได้ (กรุณาอนุญาตสิทธิ์ในเบราว์เซอร์)');
+  }
 }
+
 function stopRecord() {
-  isRecording = false; clearInterval(recordTimer);
+  if (!isRecording) return;
+  isRecording = false;
+  clearInterval(recordTimer);
+
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+  }
+
   document.getElementById('btnRecord').classList.remove('recording');
   document.getElementById('btnRecordLabel').textContent = 'START';
   document.getElementById('recordHint').textContent = 'วางเครื่องที่หน้าอก แล้วกดเพื่อเริ่มตรวจ';
+  document.getElementById('liveBadge').classList.remove('show');
 }
+
 function updateTimer() {
   const pct = Math.min((recordSeconds / MAX_RECORD) * 100, 100);
   document.getElementById('progressFill').style.width = pct + '%';
@@ -763,8 +631,8 @@ function onFileSelect(e) {
 }
 
 async function analyzeFile() {
-  if (!currentFile) { toast('กรุณาเลือกไฟล์ก่อน'); return; }
-  showSpinner('กำลังวิเคราะห์...');
+  if (!currentFile) { toast('กรุณาเลือกไฟล์หรืออัดเสียงก่อน'); return; }
+  showSpinner('กำลังส่งเสียงวิเคราะห์...');
   const form = new FormData(); form.append('file', currentFile);
   try {
     const res = await fetch(apiUrl + '/predict', { method: 'POST', headers: NGROK_HEADERS, body: form });
@@ -806,7 +674,6 @@ function showResult(data) {
   const now = new Date();
   document.getElementById('homeTime').textContent = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
 
-  // ดึงข้อมูลโปรไฟล์ล่าสุดมาบันทึกร่วมในประวัติ
   const profile = JSON.parse(localStorage.getItem('melody_profile') || '{}');
   addHistory({
     name: profile.name || 'ไม่ระบุชื่อ',
