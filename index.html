@@ -555,6 +555,57 @@ async function toggleRecord() {
   }
 }
 
+// แปลงไฟล์เสียงอัดจากเบราว์เซอร์ให้เป็น WAV มาตรฐานอัตโนมัติ
+async function convertBlobToWav(blob) {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const arrayBuffer = await blob.arrayBuffer();
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+  
+  const numOfChan = audioBuffer.numberOfChannels;
+  const length = audioBuffer.length * numOfChan * 2 + 44;
+  const out = new DataView(new ArrayBuffer(length));
+  let channels = [];
+  let sampleRate = audioBuffer.sampleRate;
+  let offset = 0;
+  let pos = 0;
+
+  function writeString(str) {
+    for (let i = 0; i < str.length; i++) {
+      out.setUint8(pos++, str.charCodeAt(i));
+    }
+  }
+
+  writeString('RIFF');
+  out.setUint32(pos, length - 8, true); pos += 4;
+  writeString('WAVE');
+  writeString('fmt ');
+  out.setUint32(pos, 16, true); pos += 4;
+  out.setUint16(pos, 1, true); pos += 2;
+  out.setUint16(pos, numOfChan, true); pos += 2;
+  out.setUint32(pos, sampleRate, true); pos += 4;
+  out.setUint32(pos, sampleRate * 2 * numOfChan, true); pos += 4;
+  out.setUint16(pos, numOfChan * 2, true); pos += 2;
+  out.setUint16(pos, 16, true); pos += 2;
+  writeString('data');
+  out.setUint32(pos, length - pos - 4, true); pos += 4;
+
+  for (let i = 0; i < audioBuffer.numberOfChannels; i++) {
+    channels.push(audioBuffer.getChannelData(i));
+  }
+
+  while (offset < audioBuffer.length) {
+    for (let i = 0; i < numOfChan; i++) {
+      let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+      sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767) | 0;
+      out.setInt16(pos, sample, true);
+      pos += 2;
+    }
+    offset++;
+  }
+
+  return new Blob([out.buffer], { type: 'audio/wav' });
+}
+
 async function startRecord() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -565,12 +616,17 @@ async function startRecord() {
       if (event.data.size > 0) audioChunks.push(event.data);
     };
 
-    mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-      currentFile = new File([audioBlob], "heart_record.wav", { type: 'audio/wav' });
+    mediaRecorder.onstop = async () => {
+      const rawBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+      
+      showSpinner('กำลังแปลงไฟล์เสียง...');
+      const wavBlob = await convertBlobToWav(rawBlob);
+      hideSpinner();
+
+      currentFile = new File([wavBlob], "heart_record.wav", { type: 'audio/wav' });
 
       const el = document.getElementById('selectedFile');
-      el.textContent = '🎙️ เสียงอัดสดจากไมโครโฟน (' + (currentFile.size/1024).toFixed(1) + ' KB)';
+      el.textContent = '🎙️ เสียงอัดสดจากไมโครโฟน (.wav) (' + (currentFile.size/1024).toFixed(1) + ' KB)';
       el.style.display = 'block';
       document.getElementById('btnAnalyze').style.display = 'block';
       toast('บันทึกเสียงสำเร็จ! กดปุ่ม "วิเคราะห์ด้วย AI" ด้านล่าง');
@@ -594,7 +650,7 @@ async function startRecord() {
 
   } catch (err) {
     console.error(err);
-    toast('❌ ไม่สามารถเข้าถึงไมโครโฟนได้ (กรุณาอนุญาตสิทธิ์ในเบราว์เซอร์)');
+    toast('❌ ไม่สามารถเข้าถึงไมโครโฟนได้');
   }
 }
 
