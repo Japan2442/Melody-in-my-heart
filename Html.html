@@ -1,0 +1,896 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Melody in My Heart</title></head><body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap">
+
+<style>
+/* ─── Design Tokens ───────────────────────────────────── */
+:root {
+  --bg:         #f0f4f8;
+  --surface:    #ffffff;
+  --header:     #1a365d;
+  --header-b:   #132a4e;
+  --accent:     #3182ce;
+  --accent-d:   #2b6cb0;
+  --normal:     #38a169;
+  --normal-bg:  #f0fff4;
+  --normal-bd:  #c6f6d5;
+  --abnormal:   #e53e3e;
+  --abnormal-bg:#fff5f5;
+  --abnormal-bd:#fed7d7;
+  --warn:       #d69e2e;
+  --warn-bg:    #fffbeb;
+  --warn-bd:    #feebc8;
+  --fg:         #2d3748;
+  --fg-muted:   #718096;
+  --fg-faint:   #a0aec0;
+  --border:     #e2e8f0;
+  --card-shadow: 0 2px 8px rgba(0,0,0,.06);
+  --font-th: 'Sarabun', system-ui, sans-serif;
+  --font-en: 'Inter', system-ui, sans-serif;
+  --nav-h: 64px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111827; --surface: #1f2937; --header: #0f1f38; --header-b: #0a1628;
+    --accent: #4299e1; --accent-d: #3182ce;
+    --normal: #48bb78; --normal-bg: #1a2e22; --normal-bd: #276749;
+    --abnormal: #fc8181; --abnormal-bg: #2d1515; --abnormal-bd: #9b2c2c;
+    --warn: #f6e05e; --warn-bg: #2d2510; --warn-bd: #975a16;
+    --fg: #e2e8f0; --fg-muted: #a0aec0; --fg-faint: #4a5568;
+    --border: #374151; --card-shadow: 0 2px 8px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111827; --surface: #1f2937; --header: #0f1f38; --header-b: #0a1628;
+  --accent: #4299e1; --accent-d: #3182ce;
+  --normal: #48bb78; --normal-bg: #1a2e22; --normal-bd: #276749;
+  --abnormal: #fc8181; --abnormal-bg: #2d1515; --abnormal-bd: #9b2c2c;
+  --warn: #f6e05e; --warn-bg: #2d2510; --warn-bd: #975a16;
+  --fg: #e2e8f0; --fg-muted: #a0aec0; --fg-faint: #4a5568;
+  --border: #374151; --card-shadow: 0 2px 8px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: var(--font-th);
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(var(--nav-h) + 16px);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--header);
+  z-index: 200;
+}
+
+/* ─── Header ──────────────────────────────────────────── */
+.app-header {
+  background: var(--header);
+  color: #fff;
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  border-bottom: 3px solid var(--accent);
+  padding: 10px max(16px, env(safe-area-inset-left, 0px));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo {
+  width: 42px; height: 42px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.header-text h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font-en);
+  letter-spacing: .3px;
+}
+.header-text p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #bee3f8;
+  font-weight: 300;
+}
+.contest-badge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 6px;
+  font-size: 10px;
+  padding: 3px 8px;
+  margin-top: 4px;
+  display: inline-block;
+  color: #bee3f8;
+}
+.btn-profile-top {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-profile-top:active { background: rgba(255,255,255,0.3); }
+
+/* ─── Nav tabs (Bottom) ───────────────────────────────── */
+.nav-tabs {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  display: flex;
+  background: var(--header-b);
+  border-top: 1px solid rgba(255,255,255,.10);
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.nav-tab {
+  flex: 1;
+  border: none;
+  background: none;
+  color: rgba(255,255,255,.55);
+  font-size: 10px;
+  font-family: var(--font-th);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: color .2s;
+}
+.nav-tab.active { color: #fff; }
+.nav-tab span:first-child { font-size: 20px; }
+
+/* ─── Page views ──────────────────────────────────────── */
+.page { display: none; padding-bottom: 24px; }
+.page.active { display: block; }
+
+/* ─── Cards ───────────────────────────────────────────── */
+.container {
+  padding: 16px max(16px, env(safe-area-inset-left, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+.card-header {
+  background: var(--accent-d);
+  color: #fff;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+.card-body { padding: 16px; }
+
+/* ─── Device Status Card ──────────────────────────────── */
+.device-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.device-icon {
+  width: 52px; height: 52px;
+  background: #ebf8ff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  border: 2px solid var(--accent);
+  flex-shrink: 0;
+}
+:root[data-theme="dark"] .device-icon { background: #1e3a4c; }
+.status-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  background: var(--fg-faint);
+}
+.status-dot.connected { background: var(--normal); animation: pulse-dot 2s infinite; }
+.status-dot.error { background: var(--abnormal); }
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; } 50% { opacity: .4; }
+}
+.status-text { font-size: 12px; font-weight: 600; color: var(--fg-muted); }
+.status-text.connected { color: var(--normal); }
+.status-text.error { color: var(--abnormal); }
+
+/* ─── Record Card ─────────────────────────────────────── */
+.record-box { text-align: center; padding: 8px 0; }
+.btn-record {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--header) 0%, var(--accent-d) 100%);
+  border: 5px solid #ebf8ff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  font-family: var(--font-th);
+  box-shadow: 0 4px 16px rgba(49,130,206,.35);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin: 0 auto 12px;
+}
+.btn-record:active { transform: scale(.96); }
+.btn-record.recording {
+  background: linear-gradient(135deg, #c53030 0%, var(--abnormal) 100%);
+  animation: pulse-ring 1.4s infinite;
+}
+@keyframes pulse-ring {
+  0%,100% { box-shadow: 0 0 0 0 rgba(229,62,62,.4); }
+  50% { box-shadow: 0 0 0 12px rgba(229,62,62,.0); }
+}
+.hint-text { font-size: 12px; color: var(--fg-muted); }
+
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 12px;
+}
+.upload-area input { display: none; }
+.upload-area p { margin: 4px 0; font-size: 12px; color: var(--fg-muted); }
+
+.waveform-wrap {
+  height: 64px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+#waveCanvas { width: 100%; height: 100%; display: block; }
+.timer-text { text-align: center; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+.progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width .1s linear; }
+
+/* ─── Result badge ────────────────────────────────────── */
+.result-badge {
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.result-badge.normal { background: var(--normal-bg); border: 1px solid var(--normal-bd); }
+.result-badge.abnormal { background: var(--abnormal-bg); border: 1px solid var(--abnormal-bd); }
+.result-badge.uncertain { background: var(--warn-bg); border: 1px solid var(--warn-bd); }
+.result-badge.pending { background: var(--bg); border: 1px solid var(--border); }
+.badge-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 16px; font-weight: 700; flex-shrink: 0;
+}
+.normal .badge-icon { background: var(--normal); }
+.abnormal .badge-icon { background: var(--abnormal); }
+.uncertain .badge-icon { background: var(--warn); }
+.pending .badge-icon { background: var(--fg-faint); }
+.badge-info h4 { margin: 0; font-size: 15px; }
+.badge-info p  { margin: 2px 0 0; font-size: 11px; color: var(--fg-muted); }
+.normal .badge-info h4 { color: var(--normal); }
+.abnormal .badge-info h4 { color: var(--abnormal); }
+.uncertain .badge-info h4 { color: var(--warn); }
+
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.metric-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; text-align: center; }
+.metric-label { font-size: 10px; color: var(--fg-muted); font-weight: 600; text-transform: uppercase; }
+.metric-val { font-size: 20px; font-weight: 700; margin: 4px 0 2px; color: var(--fg); font-family: var(--font-en); }
+.metric-sub { font-size: 10px; font-weight: 600; }
+.sub-normal { color: var(--normal); }
+.sub-abnormal { color: var(--abnormal); }
+.sub-muted { color: var(--fg-muted); }
+
+/* ─── AI steps ────────────────────────────────────────── */
+.ai-step { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 12px; color: var(--fg-muted); border-bottom: 1px solid var(--border); }
+.ai-step:last-child { border-bottom: none; }
+.ai-step .step-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--fg-muted); flex-shrink: 0; margin-top: 1px; }
+.ai-step.done .step-dot { background: var(--normal); color: #fff; }
+.ai-step.active .step-dot { background: var(--accent); color: #fff; }
+.ai-step.done { color: var(--fg); }
+.ai-step.active { color: var(--accent); font-weight: 600; }
+
+.spec-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 8px; display: none; }
+.gauge-container { position: relative; margin: 12px auto 0; max-width: 240px; }
+.gauge-container svg { width: 100%; height: auto; display: block; }
+
+/* ─── Detailed History List ───────────────────────────── */
+.hist-empty { text-align: center; color: var(--fg-muted); font-size: 13px; padding: 24px 0; }
+.history-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.history-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.history-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.history-details {
+  font-size: 12px;
+  color: var(--fg-muted);
+  display: flex;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.history-time {
+  font-size: 11px;
+  color: var(--fg-faint);
+}
+.hist-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.hist-badge.normal   { background: var(--normal-bg); color: var(--normal); border: 1px solid var(--normal-bd); }
+.hist-badge.abnormal { background: var(--abnormal-bg); color: var(--abnormal); border: 1px solid var(--abnormal-bd); }
+
+/* ─── Footer info ─────────────────────────────────────── */
+.footer-card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); padding: 14px 16px; font-size: 11px; line-height: 1.65; color: var(--fg-muted); }
+.footer-card strong { color: var(--fg); }
+
+#toast {
+  position: fixed; bottom: calc(var(--nav-h) + 16px); left: 50%; transform: translateX(-50%);
+  background: #1a202c; color: #fff; padding: 10px 18px; border-radius: 24px; font-size: 13px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3); z-index: 300; opacity: 0; transition: opacity .3s; pointer-events: none;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; }
+
+#spinner {
+  position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center;
+  z-index: 400; flex-direction: column; gap: 14px; color: #fff; font-size: 13px;
+}
+#spinner .spin-ring { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,.2); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.profile-field { margin-bottom: 14px; }
+.profile-field label { display: block; font-size: 11px; font-weight: 600; color: var(--fg-muted); margin-bottom: 4px; text-transform: uppercase; }
+.profile-field input, .profile-field select { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); font-size: 14px; font-family: var(--font-th); outline: none; }
+.btn-primary { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 4px; }
+.disclaimer { background: var(--warn-bg); border: 1px solid var(--warn-bd); border-radius: 10px; padding: 10px 14px; font-size: 11px; color: var(--warn); line-height: 1.6; }
+</style>
+
+<!-- ─── App Header ──────────────────────────────────── -->
+<header class="app-header">
+  <div class="header-row">
+    <div class="logo">♥</div>
+    <div class="header-text">
+      <h1>Melody in My Heart</h1>
+      <p>ระบบคัดกรองเสียงหัวใจดิจิทัลด้วย AI</p>
+      <div class="contest-badge">I-New Gen Award 2027</div>
+    </div>
+  </div>
+  <button class="btn-profile-top" onclick="showPage('profile', document.getElementById('navProfileBtn'))" title="โปรไฟล์ผู้ใช้">👤</button>
+</header>
+
+<!-- ─── Nav Tabs (Bottom) ─────────────────────────────── -->
+<nav class="nav-tabs" role="tablist">
+  <button class="nav-tab active" onclick="showPage('home',this)" role="tab" aria-selected="true">
+    <span>🏠</span><span>หน้าหลัก</span>
+  </button>
+  <button class="nav-tab" onclick="showPage('record',this)" role="tab">
+    <span>🎙️</span><span>ตรวจ</span>
+  </button>
+  <button class="nav-tab" onclick="showPage('results',this)" role="tab">
+    <span>📊</span><span>ผล</span>
+  </button>
+  <button class="nav-tab" onclick="showPage('history',this)" role="tab">
+    <span>📋</span><span>ประวัติ</span>
+  </button>
+  <!-- Hidden reference for profile nav toggle -->
+  <button id="navProfileBtn" style="display:none;" onclick=""></button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div class="device-row">
+          <div class="device-icon">📡</div>
+          <div>
+            <strong>Melody Heart API Server</strong>
+            <div style="margin-top:4px; display:flex; align-items:center; gap:4px;">
+              <span class="status-dot" id="statusDot"></span>
+              <span class="status-text" id="statusText">กำลังตรวจสอบ...</span>
+            </div>
+            <div style="font-size:11px; color:var(--fg-muted); margin-top:3px;" id="serverVersion"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">ผลการตรวจล่าสุด</div>
+      <div class="card-body">
+        <div class="result-badge pending" id="homeResultBadge">
+          <div class="badge-icon">—</div>
+          <div class="badge-info">
+            <h4>ยังไม่มีผลการตรวจ</h4>
+            <p>กดแท็บ "ตรวจ" ด้านล่างเพื่อเริ่มต้น</p>
+          </div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Confidence</div>
+            <div class="metric-val" id="homeConf">—</div>
+            <div class="metric-sub sub-muted" id="homeConfLabel">ไม่มีข้อมูล</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">เวลาตรวจ</div>
+            <div class="metric-val" id="homeTime">—</div>
+            <div class="metric-sub sub-muted" id="homeTimeLabel">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">เกี่ยวกับ AI Model (run_09)</div>
+      <div class="card-body" style="font-size:12px; line-height:1.7; color:var(--fg-muted);">
+        <div>🧠 <strong style="color:var(--fg);">EfficientNet-B0</strong> — Transfer Learning</div>
+        <div>🎵 Log-Mel Spectrogram (sr=2000 Hz, n_mels=64)</div>
+        <div>📊 Accuracy <strong style="color:var(--normal);">93.83%</strong> &nbsp;|&nbsp; AUC <strong style="color:var(--accent);">98.71%</strong></div>
+        <div>📈 MAcc <strong style="color:var(--accent);">95.75%</strong> (Se: 98.99% | Sp: 92.51%)</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>⚠️ ข้อควรระวัง</strong>
+      ระบบนี้ใช้สำหรับ<strong>คัดกรองเบื้องต้นเท่านั้น</strong> ไม่ใช่การวินิจฉัยโรค
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PAGE: RECORD -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-record" class="page">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <div class="record-box">
+          <button class="btn-record" id="btnRecord" onclick="toggleRecord()">
+            <span class="rec-icon">🎙️</span>
+            <span id="btnRecordLabel">START</span>
+          </button>
+          <p class="hint-text" id="recordHint">วางเครื่องที่หน้าอก แล้วกดเพื่อเริ่มตรวจ</p>
+        </div>
+        <div class="waveform-wrap"><canvas id="waveCanvas"></canvas></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="timer-text" id="timerText">00:00 / 00:30</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">หรืออัพโหลดไฟล์เสียง</div>
+      <div class="card-body">
+        <label class="upload-area" for="fileInput">
+          <div style="font-size:28px;">📂</div>
+          <p style="font-weight:600; color:var(--fg);">เลือกไฟล์ .wav</p>
+          <input type="file" id="fileInput" accept=".wav,audio/wav" onchange="onFileSelect(event)">
+        </label>
+        <div id="selectedFile" style="margin-top:10px; font-size:12px; color:var(--accent); display:none;"></div>
+        <button class="btn-primary" id="btnAnalyze" onclick="analyzeFile()" style="margin-top:12px; display:none;">🔬 วิเคราะห์ด้วย AI</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PAGE: RESULTS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-results" class="page">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">ผลการวิเคราะห์</div>
+      <div class="card-body">
+        <div class="result-badge pending" id="resultBadge">
+          <div class="badge-icon">—</div>
+          <div class="badge-info">
+            <h4>รอการตรวจ</h4>
+            <p>ยังไม่มีผลการวิเคราะห์</p>
+          </div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Confidence</div>
+            <div class="metric-val" id="resConf">—</div>
+            <div class="metric-sub sub-muted" id="resConfSub">—</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Probability (Normal)</div>
+            <div class="metric-val" id="resProb">—</div>
+            <div class="metric-sub sub-muted">ความน่าจะเป็นปกติ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="specCard" hidden>
+      <div class="card-header">Mel-Spectrogram</div>
+      <div class="card-body"><img id="specImg" class="spec-img" alt="Spectrogram"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">ระดับความเสี่ยง</div>
+      <div class="card-body">
+        <div class="gauge-container">
+          <svg viewBox="0 0 240 130" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 20 110 A 100 100 0 0 1 220 110" stroke="#e2e8f0" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <path d="M 20 110 A 100 100 0 0 1 220 110" stroke="url(#gaugeGrad)" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#38a169"/>
+                <stop offset="50%" stop-color="#d69e2e"/>
+                <stop offset="100%" stop-color="#e53e3e"/>
+              </linearGradient>
+            </defs>
+            <line id="gaugeNeedle" x1="120" y1="110" x2="120" y2="30" stroke="#1a365d" stroke-width="3" stroke-linecap="round" transform="rotate(-90, 120, 110)"/>
+            <circle cx="120" cy="110" r="7" fill="#1a365d"/>
+            <text x="120" y="98" font-size="22" font-weight="700" text-anchor="middle" fill="#1a365d" id="gaugeText">—</text>
+          </svg>
+        </div>
+        <div id="riskLabel" style="text-align:center; margin-top:-8px; font-size:13px; font-weight:600; color:var(--fg-muted);">กรุณาตรวจก่อน</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PAGE: HISTORY (Detailed Cards) -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-history" class="page">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">ประวัติการตรวจแบบละเอียด</div>
+      <div class="card-body" id="historyList">
+        <div class="hist-empty">📋 ยังไม่มีประวัติการตรวจ</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <button class="btn-sm" onclick="clearHistory()" style="background:var(--fg-muted);">ล้างประวัติทั้งหมด</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- PAGE: PROFILE (Accessible from top right button) -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-profile" class="page">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">ข้อมูลผู้รับการตรวจ (Profile)</div>
+      <div class="card-body">
+        <div class="profile-field">
+          <label>ชื่อ-นามสกุล</label>
+          <input type="text" id="pName" placeholder="เช่น สมชาย ใจดี">
+        </div>
+        <div class="profile-field">
+          <label>อายุ (ปี)</label>
+          <input type="number" id="pAge" placeholder="เช่น 65" min="1" max="120">
+        </div>
+        <div class="profile-field">
+          <label>เพศ</label>
+          <select id="pGender">
+            <option value="">เลือกเพศ</option>
+            <option value="ชาย">ชาย</option>
+            <option value="หญิง">หญิง</option>
+            <option value="อื่นๆ">อื่นๆ</option>
+          </select>
+        </div>
+        <div class="profile-field">
+          <label>กลุ่มเป้าหมาย</label>
+          <select id="pGroup">
+            <option value="ผู้สูงอายุ (60+ ปี)">ผู้สูงอายุ (60+ ปี)</option>
+            <option value="วัยรุ่น / กลุ่มเสี่ยง">วัยรุ่น / กลุ่มเสี่ยง</option>
+            <option value="บุคคลทั่วไป">อื่นๆ</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="saveProfile()">💾 บันทึกโปรไฟล์</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Spinner & Toast -->
+<div id="spinner" hidden><div class="spin-ring"></div><div id="spinnerMsg">กำลังวิเคราะห์...</div></div>
+<div id="toast"></div>
+
+<script>
+const DEFAULT_API_URL = 'https://unintroductory-stanford-preconversational.ngrok-free.dev';
+const NGROK_HEADERS = { 'ngrok-skip-browser-warning': 'true' };
+let apiUrl = DEFAULT_API_URL;
+let currentFile = null;
+let isRecording = false;
+let recordTimer = null;
+let recordSeconds = 0;
+const MAX_RECORD = 30;
+let waveAnimFrame = null;
+let scanHistory = [];
+
+(function init() {
+  try {
+    const storedHist = localStorage.getItem('melody_history');
+    if (storedHist) scanHistory = JSON.parse(storedHist);
+    const profile = localStorage.getItem('melody_profile');
+    if (profile) {
+      const p = JSON.parse(profile);
+      document.getElementById('pName').value = p.name || '';
+      document.getElementById('pAge').value = p.age || '';
+      document.getElementById('pGender').value = p.gender || '';
+      document.getElementById('pGroup').value = p.group || 'ผู้สูงอายุ (60+ ปี)';
+    }
+  } catch(e) {}
+  renderHistory();
+  checkServer();
+  setupWaveCanvas();
+})();
+
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn && btn.classList.contains('nav-tab')) btn.classList.add('active');
+}
+
+async function checkServer() {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  const ver = document.getElementById('serverVersion');
+  try {
+    const res = await fetch(apiUrl + '/health', { headers: NGROK_HEADERS, signal: AbortSignal.timeout(6000) });
+    const data = await res.json();
+    dot.className = 'status-dot connected';
+    txt.textContent = 'เชื่อมต่อแล้ว (Connected)';
+    txt.className = 'status-text connected';
+    ver.textContent = data.model || 'EfficientNet-B0 Ready';
+  } catch(e) {
+    dot.className = 'status-dot error';
+    txt.textContent = 'ไม่สามารถเชื่อมต่อได้';
+    txt.className = 'status-text error';
+    ver.textContent = 'ตรวจสอบ ngrok URL';
+  }
+}
+
+function setupWaveCanvas() {
+  const canvas = document.getElementById('waveCanvas');
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+  function draw() {
+    const W = canvas.offsetWidth, H = canvas.offsetHeight;
+    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+    ctx.clearRect(0, 0, W, H);
+    if (!isRecording) {
+      ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke(); ctx.setLineDash([]);
+    } else {
+      ctx.strokeStyle = '#3182ce'; ctx.lineWidth = 2; ctx.beginPath();
+      for (let x = 0; x <= W; x++) {
+        const y = H/2 + 0.4 * Math.sin(x*0.04 + t) * H/2;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke(); t += 0.07;
+    }
+    waveAnimFrame = requestAnimationFrame(draw);
+  }
+  if (waveAnimFrame) cancelAnimationFrame(waveAnimFrame);
+  draw();
+}
+
+function toggleRecord() {
+  if (isRecording) stopRecord();
+  else startRecord();
+}
+function startRecord() {
+  isRecording = true; recordSeconds = 0;
+  document.getElementById('btnRecord').classList.add('recording');
+  document.getElementById('btnRecordLabel').textContent = 'STOP';
+  document.getElementById('recordHint').textContent = 'กำลังบันทึก...';
+  recordTimer = setInterval(() => { recordSeconds++; updateTimer(); if (recordSeconds >= MAX_RECORD) stopRecord(); }, 1000);
+}
+function stopRecord() {
+  isRecording = false; clearInterval(recordTimer);
+  document.getElementById('btnRecord').classList.remove('recording');
+  document.getElementById('btnRecordLabel').textContent = 'START';
+  document.getElementById('recordHint').textContent = 'วางเครื่องที่หน้าอก แล้วกดเพื่อเริ่มตรวจ';
+}
+function updateTimer() {
+  const pct = Math.min((recordSeconds / MAX_RECORD) * 100, 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('timerText').textContent = `00:${String(recordSeconds).padStart(2,'0')} / 00:${MAX_RECORD}`;
+}
+
+function onFileSelect(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  currentFile = f;
+  const el = document.getElementById('selectedFile');
+  el.textContent = '📎 ' + f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)';
+  el.style.display = 'block';
+  document.getElementById('btnAnalyze').style.display = 'block';
+}
+
+async function analyzeFile() {
+  if (!currentFile) { toast('กรุณาเลือกไฟล์ก่อน'); return; }
+  showSpinner('กำลังวิเคราะห์...');
+  const form = new FormData(); form.append('file', currentFile);
+  try {
+    const res = await fetch(apiUrl + '/predict', { method: 'POST', headers: NGROK_HEADERS, body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Server error');
+    hideSpinner();
+    showResult(data);
+  } catch(e) {
+    hideSpinner();
+    toast('❌ เกิดข้อผิดพลาด: ' + e.message);
+  }
+}
+
+function showResult(data) {
+  const label = data.label;
+  const conf = (data.confidence * 100).toFixed(1);
+  const prob = (data.probability_normal * 100).toFixed(1);
+
+  let cls = label === 'Normal' ? 'normal' : 'abnormal';
+  let th = label === 'Normal' ? 'ปกติ (Normal)' : 'ผิดปกติ (Abnormal)';
+  let icon = label === 'Normal' ? '✓' : '!';
+  let desc = label === 'Normal' ? 'ไม่พบความผิดปกติ' : 'ตรวจพบความผิดปกติ ควรพบแพทย์';
+
+  setBadge('resultBadge', cls, icon, th, desc);
+  document.getElementById('resConf').textContent = conf + '%';
+  document.getElementById('resProb').textContent = prob + '%';
+
+  if (data.spectrogram) {
+    document.getElementById('specImg').src = 'data:image/png;base64,' + data.spectrogram;
+    document.getElementById('specCard').hidden = false;
+  }
+
+  const risk = Math.round((1 - data.probability_normal) * 100);
+  document.getElementById('gaugeNeedle').setAttribute('transform', `rotate(${-90 + (risk/100)*180}, 120, 110)`);
+  document.getElementById('gaugeText').textContent = risk + '%';
+
+  setBadge('homeResultBadge', cls, icon, th, desc);
+  document.getElementById('homeConf').textContent = conf + '%';
+  const now = new Date();
+  document.getElementById('homeTime').textContent = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+  // ดึงข้อมูลโปรไฟล์ล่าสุดมาบันทึกร่วมในประวัติ
+  const profile = JSON.parse(localStorage.getItem('melody_profile') || '{}');
+  addHistory({
+    name: profile.name || 'ไม่ระบุชื่อ',
+    age: profile.age || '-',
+    gender: profile.gender || '-',
+    group: profile.group || '-',
+    label, cls, conf, time: now.toISOString()
+  });
+
+  showPage('results', document.querySelectorAll('.nav-tab')[2]);
+  toast(label === 'Normal' ? '✅ ผลปกติ' : '⚠️ พบความผิดปกติ!');
+}
+
+function setBadge(id, cls, icon, h4, p) {
+  const el = document.getElementById(id);
+  el.className = 'result-badge ' + cls;
+  el.querySelector('.badge-icon').textContent = icon;
+  el.querySelector('.badge-info h4').textContent = h4;
+  el.querySelector('.badge-info p').textContent = p;
+}
+
+function saveProfile() {
+  const p = {
+    name: document.getElementById('pName').value.trim(),
+    age: document.getElementById('pAge').value.trim(),
+    gender: document.getElementById('pGender').value,
+    group: document.getElementById('pGroup').value,
+  };
+  localStorage.setItem('melody_profile', JSON.stringify(p));
+  toast('💾 บันทึกโปรไฟล์เรียบร้อย');
+  showPage('home', document.querySelectorAll('.nav-tab')[0]);
+}
+
+function addHistory(item) {
+  scanHistory.unshift(item);
+  if (scanHistory.length > 50) scanHistory.pop();
+  localStorage.setItem('melody_history', JSON.stringify(scanHistory));
+  renderHistory();
+}
+function clearHistory() {
+  scanHistory = [];
+  localStorage.removeItem('melody_history');
+  renderHistory();
+  toast('ล้างประวัติแล้ว');
+}
+
+function renderHistory() {
+  const el = document.getElementById('historyList');
+  if (!scanHistory.length) {
+    el.innerHTML = '<div class="hist-empty">📋 ยังไม่มีประวัติการตรวจ</div>';
+    return;
+  }
+  el.innerHTML = scanHistory.map(h => {
+    const d = new Date(h.time);
+    const dateStr = d.toLocaleDateString('th-TH', {day:'numeric', month:'short', year:'2-digit'});
+    const timeStr = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+    const badgeText = h.label === 'Normal' ? 'ปกติ' : 'ผิดปกติ';
+    return `<div class="history-card">
+      <div class="history-card-top">
+        <span class="history-name">👤 ${h.name}</span>
+        <span class="hist-badge ${h.cls}">${badgeText}</span>
+      </div>
+      <div class="history-details">
+        <span>อายุ: <strong>${h.age} ปี</strong></span>
+        <span>เพศ: <strong>${h.gender}</strong></span>
+        <span>กลุ่ม: <strong>${h.group}</strong></span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+        <span style="font-size:11px; color:var(--accent);">Confidence: ${h.conf}%</span>
+        <span class="history-time">🕒 ${dateStr} (${timeStr})</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function showSpinner(msg) {
+  document.getElementById('spinnerMsg').textContent = msg || 'กำลังดำเนินการ...';
+  document.getElementById('spinner').hidden = false;
+}
+function hideSpinner() { document.getElementById('spinner').hidden = true; }
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3200);
+}
+</script>
+</body></html>
