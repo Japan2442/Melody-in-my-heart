@@ -1,226 +1,121 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Melody in My Heart</title></head><body>
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Melody in My Heart</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap">
-
 <style>
+[hidden]{display:none!important}
 :root {
-  --bg:         #f0f4f8;
-  --surface:    #ffffff;
-  --header:     #1a365d;
-  --header-b:   #132a4e;
-  --accent:     #3182ce;
-  --accent-d:   #2b6cb0;
-  --normal:     #38a169;
-  --normal-bg:  #f0fff4;
-  --normal-bd:  #c6f6d5;
-  --abnormal:   #e53e3e;
-  --abnormal-bg:#fff5f5;
-  --abnormal-bd:#fed7d7;
-  --warn:       #d69e2e;
-  --warn-bg:    #fffbeb;
-  --warn-bd:    #feebc8;
-  --fg:         #2d3748;
-  --fg-muted:   #718096;
-  --fg-faint:   #a0aec0;
-  --border:     #e2e8f0;
-  --card-shadow: 0 2px 8px rgba(0,0,0,.06);
-  --font-th: 'Sarabun', system-ui, sans-serif;
-  --font-en: 'Inter', system-ui, sans-serif;
-  --nav-h: 64px;
+  --bg:#f0f4f8; --surface:#ffffff; --header:#1a365d; --header-b:#132a4e;
+  --accent:#3182ce; --accent-d:#2b6cb0;
+  --normal:#38a169; --normal-bg:#f0fff4; --normal-bd:#c6f6d5;
+  --abnormal:#e53e3e; --abnormal-bg:#fff5f5; --abnormal-bd:#fed7d7;
+  --warn:#d69e2e; --warn-bg:#fffbeb; --warn-bd:#feebc8;
+  --fg:#2d3748; --fg-muted:#718096; --fg-faint:#a0aec0; --border:#e2e8f0;
+  --card-shadow:0 2px 8px rgba(0,0,0,.06);
+  --font-th:'Sarabun',system-ui,sans-serif; --font-en:'Inter',system-ui,sans-serif;
+  --nav-h:64px;
 }
-*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-body {
-  font-family: var(--font-th);
-  background: var(--bg);
-  color: var(--fg);
-  margin: 0;
-  min-height: 100%;
-  -webkit-font-smoothing: antialiased;
-  padding-bottom: calc(var(--nav-h) + 16px);
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0 0 auto;
-  height: env(safe-area-inset-top, 0px);
-  background: var(--header);
-  z-index: 200;
-}
-
-.app-header {
-  background: var(--header);
-  color: #fff;
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
-  z-index: 100;
-  border-bottom: 3px solid var(--accent);
-  padding: 10px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.header-row { display: flex; align-items: center; gap: 12px; }
-.logo {
-  width: 42px; height: 42px; background: var(--accent); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
-}
-.header-text h1 { margin: 0; font-size: 15px; font-weight: 700; font-family: var(--font-en); }
-.header-text p { margin: 2px 0 0; font-size: 11px; color: #bee3f8; }
-.contest-badge {
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-  border-radius: 6px; font-size: 10px; padding: 2px 6px; margin-top: 4px; display: inline-block; color: #bee3f8;
-}
-.btn-profile-top {
-  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff;
-  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer;
-}
-
-.nav-tabs {
-  position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h);
-  display: flex; background: var(--header-b); border-top: 1px solid rgba(255,255,255,.10); z-index: 100;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.nav-tab {
-  flex: 1; border: none; background: none; color: rgba(255,255,255,.55);
-  font-size: 10px; font-family: var(--font-th); cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-}
-.nav-tab.active { color: #fff; }
-.nav-tab span:first-child { font-size: 20px; }
-
-.page { display: none; padding-bottom: 24px; }
-.page.active { display: block; }
-
-.container { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
-.card { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--card-shadow); overflow: hidden; }
-.card-header { background: var(--accent-d); color: #fff; padding: 9px 16px; font-size: 13px; font-weight: 600; }
-.card-body { padding: 16px; }
-
-.device-row { display: flex; align-items: center; gap: 14px; }
-.device-icon {
-  width: 52px; height: 52px; background: #ebf8ff; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 24px; border: 2px solid var(--accent); flex-shrink: 0;
-}
-.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; background: var(--fg-faint); }
-.status-dot.connected { background: var(--normal); animation: pulse-dot 2s infinite; }
-.status-dot.error { background: var(--abnormal); }
-@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
-.status-text { font-size: 12px; font-weight: 600; color: var(--fg-muted); }
-.status-text.connected { color: var(--normal); }
-.status-text.error { color: var(--abnormal); }
-
-.record-box { text-align: center; padding: 8px 0; position: relative; }
-.btn-record {
-  width: 90px; height: 90px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--header) 0%, var(--accent-d) 100%);
-  border: 5px solid #ebf8ff; color: #fff; font-weight: 700; font-size: 11px;
-  font-family: var(--font-th); box-shadow: 0 4px 16px rgba(49,130,206,.35);
-  cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 2px; margin: 0 auto 12px; z-index: 2; position: relative; transition: transform 0.2s;
-}
-.btn-record:disabled { background: #cbd5e0; border-color: #e2e8f0; cursor: not-allowed; box-shadow: none; }
-.btn-record:active:not(:disabled) { transform: scale(.95); }
-.btn-record.recording {
-  background: linear-gradient(135deg, #c53030 0%, var(--abnormal) 100%);
-  border-color: #fed7d7; animation: pulse-btn 1.2s infinite ease-in-out;
-}
-@keyframes pulse-btn {
-  0% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.6); }
-  70% { box-shadow: 0 0 0 22px rgba(229, 62, 62, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0); }
-}
-
-.live-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--abnormal-bg); border: 1px solid var(--abnormal-bd); color: var(--abnormal);
-  padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
-  margin-bottom: 10px; opacity: 0; transform: translateY(-4px); transition: opacity 0.3s, transform 0.3s;
-}
-.live-badge.show { opacity: 1; transform: translateY(0); }
-.live-dot {
-  width: 8px; height: 8px; background: var(--abnormal); border-radius: 50%;
-  animation: blink-dot 0.8s infinite alternate;
-}
-@keyframes blink-dot { from { opacity: 0.3; transform: scale(0.8); } to { opacity: 1; transform: scale(1.2); } }
-
-.hint-text { font-size: 12px; color: var(--fg-muted); }
-
-.upload-area {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  border: 2px dashed var(--border); border-radius: 12px; padding: 20px 16px; text-align: center;
-  cursor: pointer; margin-top: 12px; background: var(--bg); transition: border-color 0.2s;
-}
-.upload-area input { display: none; }
-.upload-icon { font-size: 32px; margin-bottom: 6px; }
-.upload-text { font-size: 13px; font-weight: 600; color: var(--fg); }
-.upload-sub { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
-
-.waveform-wrap { height: 64px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
-#waveCanvas { width: 100%; height: 100%; display: block; }
-.timer-text { text-align: center; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-.progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
-.progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width .1s linear; }
-
-.result-badge { border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.result-badge.normal { background: var(--normal-bg); border: 1px solid var(--normal-bd); }
-.result-badge.abnormal { background: var(--abnormal-bg); border: 1px solid var(--abnormal-bd); }
-.result-badge.pending { background: var(--bg); border: 1px solid var(--border); }
-.badge-icon {
-  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 16px; font-weight: 700; flex-shrink: 0;
-}
-.normal .badge-icon { background: var(--normal); }
-.abnormal .badge-icon { background: var(--abnormal); }
-.pending .badge-icon { background: var(--fg-faint); }
-.badge-info h4 { margin: 0; font-size: 15px; }
-.badge-info p  { margin: 2px 0 0; font-size: 11px; color: var(--fg-muted); }
-.normal .badge-info h4 { color: var(--normal); }
-.abnormal .badge-info h4 { color: var(--abnormal); }
-
-.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.metric-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; text-align: center; }
-.metric-label { font-size: 10px; color: var(--fg-muted); font-weight: 600; text-transform: uppercase; }
-.metric-val { font-size: 20px; font-weight: 700; margin: 4px 0 2px; color: var(--fg); font-family: var(--font-en); }
-.metric-sub { font-size: 10px; font-weight: 600; }
-.sub-normal { color: var(--normal); }
-.sub-abnormal { color: var(--abnormal); }
-.sub-muted { color: var(--fg-muted); }
-
-.spec-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 8px; display: block; }
-.gauge-container { position: relative; margin: 12px auto 0; max-width: 240px; }
-.gauge-container svg { width: 100%; height: auto; display: block; }
-
-.hist-empty { text-align: center; color: var(--fg-muted); font-size: 13px; padding: 24px 0; }
-.history-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
-.history-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.history-name { font-size: 15px; font-weight: 700; color: var(--fg); }
-.history-details { font-size: 12px; color: var(--fg-muted); display: flex; gap: 12px; margin-bottom: 4px; }
-.history-time { font-size: 11px; color: var(--fg-faint); }
-.hist-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
-.hist-badge.normal   { background: var(--normal-bg); color: var(--normal); border: 1px solid var(--normal-bd); }
-.hist-badge.abnormal { background: var(--abnormal-bg); color: var(--abnormal); border: 1px solid var(--abnormal-bd); }
-
-#toast {
-  position: fixed; bottom: calc(var(--nav-h) + 16px); left: 50%; transform: translateX(-50%);
-  background: #1a202c; color: #fff; padding: 10px 18px; border-radius: 24px; font-size: 13px;
-  z-index: 300; opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap;
-}
-#toast.show { opacity: 1; }
-
-#spinner {
-  position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center;
-  z-index: 400; flex-direction: column; gap: 14px; color: #fff; font-size: 13px;
-}
-#spinner .spin-ring { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,.2); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.profile-field { margin-bottom: 14px; }
-.profile-field label { display: block; font-size: 11px; font-weight: 600; color: var(--fg-muted); margin-bottom: 4px; text-transform: uppercase; }
-.profile-field input, .profile-field select { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); font-size: 14px; font-family: var(--font-th); outline: none; }
-.btn-primary { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 4px; }
-.disclaimer { background: var(--warn-bg); border: 1px solid var(--warn-bd); border-radius: 10px; padding: 10px 14px; font-size: 11px; color: var(--warn); line-height: 1.6; }
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--font-th);background:var(--bg);color:var(--fg);margin:0;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--nav-h) + 16px)}
+img{max-width:100%}
+.app-header{background:var(--header);color:#fff;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--accent);padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.header-row{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.header-text h1{margin:0;font-size:15px;font-weight:700;font-family:var(--font-en)}
+.header-text p{margin:2px 0 0;font-size:11px;color:#bee3f8}
+.contest-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;font-size:10px;padding:2px 6px;margin-top:4px;display:inline-block;color:#bee3f8}
+.btn-profile-top{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+.nav-tabs{position:fixed;bottom:0;left:0;right:0;height:var(--nav-h);display:flex;background:var(--header-b);border-top:1px solid rgba(255,255,255,.1);z-index:100}
+.nav-tab{flex:1;border:none;background:none;color:rgba(255,255,255,.55);font-size:10px;font-family:var(--font-th);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.nav-tab.active{color:#fff}
+.nav-tab span:first-child{font-size:20px}
+.page{display:none;padding-bottom:24px}
+.page.active{display:block}
+.container{padding:16px;display:flex;flex-direction:column;gap:14px;max-width:640px;margin:0 auto}
+.card{background:var(--surface);border-radius:16px;border:1px solid var(--border);box-shadow:var(--card-shadow);overflow:hidden}
+.card-header{background:var(--accent-d);color:#fff;padding:9px 16px;font-size:13px;font-weight:600}
+.card-body{padding:16px}
+.device-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.device-info-left{display:flex;align-items:center;gap:14px}
+.device-icon{width:52px;height:52px;background:#ebf8ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;border:2px solid var(--accent);flex-shrink:0}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--fg-faint)}
+.status-dot.connected{background:var(--normal);animation:pulse-dot 2s infinite}
+.status-dot.error{background:var(--abnormal)}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.status-text{font-size:12px;font-weight:600;color:var(--fg-muted)}
+.status-text.connected{color:var(--normal)}
+.status-text.error{color:var(--abnormal)}
+.btn-connect{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:var(--font-th)}
+.btn-connect.connected{background:var(--normal)}
+.record-box{text-align:center;padding:8px 0}
+.btn-record{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--header) 0%,var(--accent-d) 100%);border:5px solid #ebf8ff;color:#fff;font-weight:700;font-size:11px;font-family:var(--font-th);box-shadow:0 4px 16px rgba(49,130,206,.35);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin:0 auto 12px;transition:transform .2s}
+.btn-record:active{transform:scale(.95)}
+.btn-record.recording{background:linear-gradient(135deg,#c53030 0%,var(--abnormal) 100%);border-color:#fed7d7;animation:pulse-btn 1.2s infinite ease-in-out}
+@keyframes pulse-btn{0%{box-shadow:0 0 0 0 rgba(229,62,62,.6)}70%{box-shadow:0 0 0 22px rgba(229,62,62,0)}100%{box-shadow:0 0 0 0 rgba(229,62,62,0)}}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:var(--abnormal-bg);border:1px solid var(--abnormal-bd);color:var(--abnormal);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:10px;opacity:0;transition:opacity .3s}
+.live-badge.show{opacity:1}
+.live-dot{width:8px;height:8px;background:var(--abnormal);border-radius:50%;animation:blink-dot .8s infinite alternate}
+@keyframes blink-dot{from{opacity:.3}to{opacity:1}}
+.hint-text{font-size:13px;font-weight:600;color:var(--accent);margin:6px 0 0}
+.debug-info{font-size:11px;color:var(--fg-muted);margin-top:6px;font-family:monospace;min-height:14px}
+.upload-area{display:flex;flex-direction:column;align-items:center;border:2px dashed var(--border);border-radius:12px;padding:20px 16px;text-align:center;cursor:pointer;background:var(--bg)}
+.upload-area input{display:none}
+.upload-icon{font-size:32px;margin-bottom:6px}
+.upload-text{font-size:13px;font-weight:600}
+.upload-sub{font-size:11px;color:var(--fg-muted);margin-top:2px}
+.waveform-wrap{height:64px;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:10px}
+#waveCanvas{width:100%;height:100%;display:block}
+.timer-text{text-align:center;font-size:15px;font-weight:700;margin-bottom:10px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.progress-fill{height:100%;background:var(--accent);width:0%;transition:width .1s linear}
+.result-badge{border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.result-badge.normal{background:var(--normal-bg);border:1px solid var(--normal-bd)}
+.result-badge.abnormal{background:var(--abnormal-bg);border:1px solid var(--abnormal-bd)}
+.result-badge.pending{background:var(--bg);border:1px solid var(--border)}
+.badge-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0}
+.normal .badge-icon{background:var(--normal)}
+.abnormal .badge-icon{background:var(--abnormal)}
+.pending .badge-icon{background:var(--fg-faint)}
+.badge-info h4{margin:0;font-size:15px}
+.badge-info p{margin:2px 0 0;font-size:11px;color:var(--fg-muted)}
+.normal .badge-info h4{color:var(--normal)}
+.abnormal .badge-info h4{color:var(--abnormal)}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center}
+.metric-label{font-size:10px;color:var(--fg-muted);font-weight:600;text-transform:uppercase}
+.metric-val{font-size:20px;font-weight:700;margin:4px 0 2px;font-family:var(--font-en)}
+.metric-sub{font-size:10px;font-weight:600}
+.sub-muted{color:var(--fg-muted)}
+.spec-img{width:100%;border-radius:8px;border:1px solid var(--border);display:block}
+.gauge-container{margin:12px auto 0;max-width:240px}
+.gauge-container svg{width:100%;height:auto;display:block}
+.hist-empty{text-align:center;color:var(--fg-muted);font-size:13px;padding:24px 0}
+.history-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.history-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.history-name{font-size:15px;font-weight:700}
+.history-details{font-size:12px;color:var(--fg-muted);display:flex;flex-wrap:wrap;gap:12px;margin-bottom:4px}
+.history-time{font-size:11px;color:var(--fg-faint)}
+.hist-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.hist-badge.normal{background:var(--normal-bg);color:var(--normal);border:1px solid var(--normal-bd)}
+.hist-badge.abnormal{background:var(--abnormal-bg);color:var(--abnormal);border:1px solid var(--abnormal-bd)}
+#toast{position:fixed;bottom:calc(var(--nav-h) + 16px);left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;padding:10px 18px;border-radius:24px;font-size:13px;z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}
+#toast.show{opacity:1}
+#spinner{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:400;flex-direction:column;gap:14px;color:#fff;font-size:13px}
+#spinner .spin-ring{width:48px;height:48px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.profile-field{margin-bottom:14px}
+.profile-field label{display:block;font-size:11px;font-weight:600;color:var(--fg-muted);margin-bottom:4px}
+.profile-field input,.profile-field select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);font-size:14px;font-family:var(--font-th)}
+.btn-primary{width:100%;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;font-family:var(--font-th)}
+.btn-secondary{width:100%;background:#4a5568;color:#fff;border:none;border-radius:10px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;font-family:var(--font-th)}
+.btn-sm{background:var(--fg-muted);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;cursor:pointer;font-family:var(--font-th)}
+.disclaimer{background:var(--warn-bg);border:1px solid var(--warn-bd);border-radius:10px;padding:10px 14px;font-size:11px;color:var(--warn);line-height:1.6}
 </style>
+</head>
+<body>
 
 <header class="app-header">
   <div class="header-row">
@@ -231,137 +126,112 @@ body::before {
       <div class="contest-badge">I-New Gen Award 2027</div>
     </div>
   </div>
-  <button class="btn-profile-top" onclick="showPage('profile', document.getElementById('navProfileBtn'))" title="โปรไฟล์ผู้ใช้">👤</button>
+  <button class="btn-profile-top" onclick="showPage('profile', null)" title="โปรไฟล์ผู้ใช้">👤</button>
 </header>
 
-<nav class="nav-tabs" role="tablist">
-  <button class="nav-tab active" onclick="showPage('home',this)" role="tab" aria-selected="true">
-    <span>🏠</span><span>หน้าหลัก</span>
-  </button>
-  <button class="nav-tab" onclick="showPage('record',this)" role="tab">
-    <span>🎙️</span><span>ตรวจ</span>
-  </button>
-  <button class="nav-tab" onclick="showPage('results',this)" role="tab">
-    <span>📊</span><span>ผล</span>
-  </button>
-  <button class="nav-tab" onclick="showPage('history',this)" role="tab">
-    <span>📋</span><span>ประวัติ</span>
-  </button>
-  <button id="navProfileBtn" style="display:none;" onclick=""></button>
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showPage('home',this)"><span>🏠</span><span>หน้าหลัก</span></button>
+  <button class="nav-tab" onclick="showPage('record',this)"><span>🎙️</span><span>ตรวจ</span></button>
+  <button class="nav-tab" onclick="showPage('results',this)"><span>📊</span><span>ผล</span></button>
+  <button class="nav-tab" onclick="showPage('history',this)"><span>📋</span><span>ประวัติ</span></button>
 </nav>
 
-<!-- HOME PAGE -->
+<!-- ===== HOME ===== -->
 <div id="page-home" class="page active">
   <div class="container">
-    <div class="card">
-      <div class="card-body">
-        <div class="device-row">
+    <div class="card"><div class="card-body">
+      <div class="device-row">
+        <div class="device-info-left">
           <div class="device-icon">📡</div>
           <div>
-            <strong>ESP32 Heart Hardware</strong>
-            <div style="margin-top:4px; display:flex; align-items:center; gap:4px;">
+            <strong>ESP32 Hardware (USB)</strong>
+            <div style="margin-top:4px;display:flex;align-items:center;gap:4px;">
               <span class="status-dot" id="espStatusDot"></span>
-              <span class="status-text" id="espStatusText">กำลังตรวจสอบ Wi-Fi...</span>
+              <span class="status-text" id="espStatusText">ยังไม่ได้เชื่อมต่อพอร์ต USB</span>
             </div>
           </div>
         </div>
+        <button class="btn-connect" id="btnConnectSerial" onclick="toggleSerialConnection()">🔌 เชื่อมต่อพอร์ต</button>
       </div>
-    </div>
+    </div></div>
 
-    <div class="card">
-      <div class="card-body">
-        <div class="device-row">
-          <div class="device-icon">❤️</div>
-          <div>
-            <strong>Melody Heart AI Server</strong>
-            <div style="margin-top:4px; display:flex; align-items:center; gap:4px;">
-              <span class="status-dot" id="serverStatusDot"></span>
-              <span class="status-text" id="serverStatusText">กำลังตรวจสอบ...</span>
-            </div>
-            <div style="font-size:11px; color:var(--fg-muted); margin-top:3px;" id="serverVersion"></div>
+    <div class="card"><div class="card-body">
+      <div class="device-info-left">
+        <div class="device-icon">🧠</div>
+        <div>
+          <strong>Melody Heart AI Server</strong>
+          <div style="margin-top:4px;display:flex;align-items:center;gap:4px;">
+            <span class="status-dot" id="serverStatusDot"></span>
+            <span class="status-text" id="serverStatusText">กำลังตรวจสอบ...</span>
           </div>
+          <div style="font-size:11px;color:var(--fg-muted);margin-top:3px;" id="serverVersion"></div>
         </div>
       </div>
-    </div>
+    </div></div>
 
     <div class="card">
       <div class="card-header">ผลการตรวจล่าสุด</div>
       <div class="card-body">
         <div class="result-badge pending" id="homeResultBadge">
           <div class="badge-icon">—</div>
-          <div class="badge-info">
-            <h4>ยังไม่มีผลการตรวจ</h4>
-            <p>กดแท็บ "ตรวจ" ด้านล่างเพื่อเริ่มต้น</p>
-          </div>
+          <div class="badge-info"><h4>ยังไม่มีผลการตรวจ</h4><p>กดแท็บ "ตรวจ" ด้านล่างเพื่อเริ่มต้น</p></div>
         </div>
         <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-label">Confidence</div>
-            <div class="metric-val" id="homeConf">—</div>
-            <div class="metric-sub sub-muted" id="homeConfLabel">ไม่มีข้อมูล</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">เวลาตรวจ</div>
-            <div class="metric-val" id="homeTime">—</div>
-            <div class="metric-sub sub-muted" id="homeTimeLabel">—</div>
-          </div>
+          <div class="metric-card"><div class="metric-label">Confidence</div><div class="metric-val" id="homeConf">—</div></div>
+          <div class="metric-card"><div class="metric-label">เวลาตรวจ</div><div class="metric-val" id="homeTime">—</div></div>
         </div>
       </div>
     </div>
 
-    <div class="disclaimer">
-      <strong>⚠️ ข้อควรระวัง</strong>
-      ระบบนี้ใช้สำหรับ<strong>คัดกรองเบื้องต้นเท่านั้น</strong> ไม่ใช่การวินิจฉัยโรค
-    </div>
+    <div class="disclaimer"><strong>⚠️ ข้อควรระวัง</strong> ระบบนี้ใช้สำหรับ<strong>คัดกรองเบื้องต้นเท่านั้น</strong> ไม่ใช่การวินิจฉัยโรค</div>
   </div>
 </div>
 
-<!-- RECORD PAGE -->
+<!-- ===== RECORD ===== -->
 <div id="page-record" class="page">
   <div class="container">
     <div class="card">
-      <div class="card-header">บันทึกเสียงจากอุปกรณ์ ESP32</div>
+      <div class="card-header">บันทึกเสียงและเช็กตำแหน่งอัตโนมัติ (5 วินาที)</div>
       <div class="card-body">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px; font-size:12px;" id="recordConnectionBanner">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;">
           <span class="status-dot" id="recEspDot"></span>
-          <span id="recEspText" style="font-weight:600; color:var(--fg-muted);">กำลังเชื่อมต่อ Wi-Fi ESP32...</span>
+          <span class="status-text" id="recEspText">ยังไม่ได้เชื่อมต่อพอร์ต USB</span>
         </div>
 
         <div class="record-box">
-          <div id="liveBadge" class="live-badge">
-            <span class="live-dot"></span> กำลังบันทึกเสียงหัวใจจากอุปกรณ์...
-          </div>
-
-          <button class="btn-record" id="btnRecord" onclick="startEspRecord()" disabled>
-            <span class="rec-icon">🎙️</span>
-            <span id="btnRecordLabel">START</span>
+          <div id="liveBadge" class="live-badge"><span class="live-dot"></span> กำลังรับสัญญาณจากอุปกรณ์...</div>
+          <button class="btn-record" id="btnRecord" onclick="startSmartRecord()">
+            <span>🎙️</span><span id="btnRecordLabel">START</span>
           </button>
-          <p class="hint-text" id="recordHint">กรุณาเชื่อมต่อ Wi-Fi "ESP32_Heart_Monitor" ก่อนกดตรวจ</p>
+          <p class="hint-text" id="recordHint">กด "เชื่อมต่อพอร์ต" ที่หน้าหลักก่อน แล้วกลับมากด START</p>
+          <div class="debug-info" id="debugInfo"></div>
+          <button class="btn-secondary" id="btnSkip" onclick="skipCheck=true" hidden>⏩ ข้ามการเช็ก อัดเลย</button>
         </div>
 
         <div class="waveform-wrap"><canvas id="waveCanvas"></canvas></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="timer-text" id="timerText">00:00 / 00:03</div>
+        <div class="timer-text" id="timerText">00:00 / 00:05</div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header">หรืออัพโหลดไฟล์เสียง (.wav)</div>
+      <div class="card-header">วิเคราะห์และจัดการไฟล์เสียง</div>
       <div class="card-body">
         <label class="upload-area" for="fileInput">
           <div class="upload-icon">📁</div>
-          <div class="upload-text">เลือกไฟล์ .wav</div>
+          <div class="upload-text">เลือกไฟล์ .wav (หรือใช้อุปกรณ์)</div>
           <div class="upload-sub">รองรับไฟล์เสียงหัวใจดิจิทัล (.wav)</div>
           <input type="file" id="fileInput" accept=".wav,audio/wav" onchange="onFileSelect(event)">
         </label>
-        <div id="selectedFile" style="margin-top:10px; font-size:12px; color:var(--accent); display:none; text-align:center;"></div>
-        <button class="btn-primary" id="btnAnalyze" onclick="analyzeFile()" style="margin-top:12px; display:none;">🔬 วิเคราะห์ด้วย AI</button>
+        <div id="selectedFile" style="margin-top:10px;font-size:12px;color:var(--accent);text-align:center;" hidden></div>
+        <button class="btn-primary" id="btnAnalyze" onclick="analyzeFile()" hidden>🔬 วิเคราะห์ด้วย AI</button>
+        <button class="btn-secondary" id="btnDownload" onclick="downloadAudioFile()" hidden>📥 ดาวน์โหลดไฟล์เสียง (.wav)</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- RESULTS PAGE -->
+<!-- ===== RESULTS ===== -->
 <div id="page-results" class="page">
   <div class="container">
     <div class="card">
@@ -369,22 +239,11 @@ body::before {
       <div class="card-body">
         <div class="result-badge pending" id="resultBadge">
           <div class="badge-icon">—</div>
-          <div class="badge-info">
-            <h4>รอการตรวจ</h4>
-            <p>ยังไม่มีผลการวิเคราะห์</p>
-          </div>
+          <div class="badge-info"><h4>รอการตรวจ</h4><p>ยังไม่มีผลการวิเคราะห์</p></div>
         </div>
         <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-label">Confidence</div>
-            <div class="metric-val" id="resConf">—</div>
-            <div class="metric-sub sub-muted" id="resConfSub">—</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Probability (Normal)</div>
-            <div class="metric-val" id="resProb">—</div>
-            <div class="metric-sub sub-muted">ความน่าจะเป็นปกติ</div>
-          </div>
+          <div class="metric-card"><div class="metric-label">Confidence</div><div class="metric-val" id="resConf">—</div></div>
+          <div class="metric-card"><div class="metric-label">Probability (Normal)</div><div class="metric-val" id="resProb">—</div><div class="metric-sub sub-muted">ความน่าจะเป็นปกติ</div></div>
         </div>
       </div>
     </div>
@@ -399,71 +258,47 @@ body::before {
       <div class="card-body">
         <div class="gauge-container">
           <svg viewBox="0 0 240 130" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 20 110 A 100 100 0 0 1 220 110" stroke="#e2e8f0" stroke-width="14" fill="none" stroke-linecap="round"/>
-            <path d="M 20 110 A 100 100 0 0 1 220 110" stroke="url(#gaugeGrad)" stroke-width="14" fill="none" stroke-linecap="round"/>
             <defs>
               <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#38a169"/>
-                <stop offset="50%" stop-color="#d69e2e"/>
-                <stop offset="100%" stop-color="#e53e3e"/>
+                <stop offset="0%" stop-color="#38a169"/><stop offset="50%" stop-color="#d69e2e"/><stop offset="100%" stop-color="#e53e3e"/>
               </linearGradient>
             </defs>
+            <path d="M 20 110 A 100 100 0 0 1 220 110" stroke="url(#gaugeGrad)" stroke-width="14" fill="none" stroke-linecap="round"/>
             <line id="gaugeNeedle" x1="120" y1="110" x2="120" y2="30" stroke="#1a365d" stroke-width="3" stroke-linecap="round" transform="rotate(-90, 120, 110)"/>
             <circle cx="120" cy="110" r="7" fill="#1a365d"/>
             <text x="120" y="98" font-size="22" font-weight="700" text-anchor="middle" fill="#1a365d" id="gaugeText">—</text>
           </svg>
         </div>
-        <div id="riskLabel" style="text-align:center; margin-top:-8px; font-size:13px; font-weight:600; color:var(--fg-muted);">กรุณาตรวจก่อน</div>
+        <div id="riskLabel" style="text-align:center;margin-top:-8px;font-size:13px;font-weight:600;color:var(--fg-muted);">กรุณาตรวจก่อน</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- HISTORY PAGE -->
+<!-- ===== HISTORY ===== -->
 <div id="page-history" class="page">
   <div class="container">
     <div class="card">
       <div class="card-header">ประวัติการตรวจแบบละเอียด</div>
-      <div class="card-body" id="historyList">
-        <div class="hist-empty">📋 ยังไม่มีประวัติการตรวจ</div>
-      </div>
+      <div class="card-body" id="historyList"><div class="hist-empty">📋 ยังไม่มีประวัติการตรวจ</div></div>
     </div>
-    <div style="text-align:center;">
-      <button class="btn-sm" onclick="clearHistory()" style="background:var(--fg-muted);">ล้างประวัติทั้งหมด</button>
-    </div>
+    <div style="text-align:center;"><button class="btn-sm" onclick="clearHistory()">ล้างประวัติทั้งหมด</button></div>
   </div>
 </div>
 
-<!-- PROFILE PAGE -->
+<!-- ===== PROFILE ===== -->
 <div id="page-profile" class="page">
   <div class="container">
     <div class="card">
       <div class="card-header">ข้อมูลผู้รับการตรวจ (Profile)</div>
       <div class="card-body">
-        <div class="profile-field">
-          <label>ชื่อ-นามสกุล</label>
-          <input type="text" id="pName" placeholder="เช่น สมชาย ใจดี">
+        <div class="profile-field"><label>ชื่อ-นามสกุล</label><input type="text" id="pName" placeholder="เช่น สมชาย ใจดี"></div>
+        <div class="profile-field"><label>อายุ (ปี)</label><input type="number" id="pAge" placeholder="เช่น 65" min="1" max="120"></div>
+        <div class="profile-field"><label>เพศ</label>
+          <select id="pGender"><option value="">เลือกเพศ</option><option value="ชาย">ชาย</option><option value="หญิง">หญิง</option><option value="อื่นๆ">อื่นๆ</option></select>
         </div>
-        <div class="profile-field">
-          <label>อายุ (ปี)</label>
-          <input type="number" id="pAge" placeholder="เช่น 65" min="1" max="120">
-        </div>
-        <div class="profile-field">
-          <label>เพศ</label>
-          <select id="pGender">
-            <option value="">เลือกเพศ</option>
-            <option value="ชาย">ชาย</option>
-            <option value="หญิง">หญิง</option>
-            <option value="อื่นๆ">อื่นๆ</option>
-          </select>
-        </div>
-        <div class="profile-field">
-          <label>กลุ่มเป้าหมาย</label>
-          <select id="pGroup">
-            <option value="ผู้สูงอายุ (60+ ปี)">ผู้สูงอายุ (60+ ปี)</option>
-            <option value="วัยรุ่น / กลุ่มเสี่ยง">วัยรุ่น / กลุ่มเสี่ยง</option>
-            <option value="บุคคลทั่วไป">อื่นๆ</option>
-          </select>
+        <div class="profile-field"><label>กลุ่มเป้าหมาย</label>
+          <select id="pGroup"><option value="ผู้สูงอายุ (60+ ปี)">ผู้สูงอายุ (60+ ปี)</option><option value="วัยรุ่น / กลุ่มเสี่ยง">วัยรุ่น / กลุ่มเสี่ยง</option><option value="บุคคลทั่วไป">อื่นๆ</option></select>
         </div>
         <button class="btn-primary" onclick="saveProfile()">💾 บันทึกโปรไฟล์</button>
       </div>
@@ -475,240 +310,464 @@ body::before {
 <div id="toast"></div>
 
 <script>
-const DEFAULT_API_URL = 'https://unintroductory-stanford-preconversational.ngrok-free.dev';
+// ================= ตั้งค่า =================
+const API_URL = 'https://unintroductory-stanford-preconversational.ngrok-free.dev';
 const NGROK_HEADERS = { 'ngrok-skip-browser-warning': 'true' };
-let apiUrl = DEFAULT_API_URL;
+const BAUD_RATE = 921600;          // ต้องตรงกับ Serial.begin() ใน ESP32
+const FS = 8000;                   // Sample rate
+const CHECK_SEC = 4;               // ใช้เสียงกี่วินาทีในการเช็กตำแหน่ง
+const RECORD_SEC = 5;              // อัดจริงกี่วินาที
+const GOOD_NEEDED = 3;             // ต้องผ่านติดกันกี่รอบ
+const TIMEOUT_SEC = 30;            // หาตำแหน่งไม่เจอภายในกี่วินาที
+const SYNC = [0xA5, 0x5A, 0xA5, 0x5A];
+
+// ================= ตัวแปร =================
 let currentFile = null;
-let isRecording = false;
-let recordTimer = null;
-let recordSeconds = 0;
-const MAX_RECORD = 3; // อัดสดจาก ESP32 3 วินาที
-let waveAnimFrame = null;
 let scanHistory = [];
+let serialPort = null, serialReader = null, serialWriter = null;
+let isRecording = false, isCapturing = false;
+let stopRequested = false, skipCheck = false;
 
-const ESP_IP = "http://192.168.4.1";
-const ESP_SAMPLE_RATE = 8000;
+const LIVE_LEN = 1600;
+const liveBuf = new Float32Array(LIVE_LEN);
+let livePos = 0, hasLive = false;
 
+const byId = (id) => document.getElementById(id);
+
+// ================= เริ่มต้น =================
 (function init() {
   try {
-    const storedHist = localStorage.getItem('melody_history');
-    if (storedHist) scanHistory = JSON.parse(storedHist);
-    const profile = localStorage.getItem('melody_profile');
-    if (profile) {
-      const p = JSON.parse(profile);
-      document.getElementById('pName').value = p.name || '';
-      document.getElementById('pAge').value = p.age || '';
-      document.getElementById('pGender').value = p.gender || '';
-      document.getElementById('pGroup').value = p.group || 'ผู้สูงอายุ (60+ ปี)';
+    const h = localStorage.getItem('melody_history');
+    if (h) scanHistory = JSON.parse(h);
+    const p = JSON.parse(localStorage.getItem('melody_profile') || 'null');
+    if (p) {
+      byId('pName').value = p.name || '';
+      byId('pAge').value = p.age || '';
+      byId('pGender').value = p.gender || '';
+      byId('pGroup').value = p.group || 'ผู้สูงอายุ (60+ ปี)';
     }
-  } catch(e) {}
+  } catch (e) {}
   renderHistory();
   checkServer();
   setupWaveCanvas();
+  updateSerialUI(false);
 
-  // เช็คสถานะเชื่อมต่อ ESP32 ทุกๆ 2 วินาที
-  setInterval(checkEspConnection, 2000);
+  if ('serial' in navigator) {
+    navigator.serial.addEventListener('disconnect', (e) => {
+      if (e.target === serialPort) {
+        stopRequested = true;
+        serialPort = null; serialWriter = null;
+        updateSerialUI(false);
+        toast('🔌 สาย USB หลุด');
+      }
+    });
+  }
 })();
 
 function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  if (btn && btn.classList.contains('nav-tab')) btn.classList.add('active');
+  byId('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
-// เช็คสถานะ AI Server (ngrok)
 async function checkServer() {
-  const dot = document.getElementById('serverStatusDot');
-  const txt = document.getElementById('serverStatusText');
-  const ver = document.getElementById('serverVersion');
+  const dot = byId('serverStatusDot'), txt = byId('serverStatusText'), ver = byId('serverVersion');
   try {
-    const res = await fetch(apiUrl + '/health', { headers: NGROK_HEADERS, signal: AbortSignal.timeout(5000) });
+    const res = await fetch(API_URL + '/health', { headers: NGROK_HEADERS, signal: AbortSignal.timeout(5000) });
     const data = await res.json();
     dot.className = 'status-dot connected';
-    txt.textContent = 'เชื่อมต่อแล้ว (Connected)';
-    txt.className = 'status-text connected';
+    txt.className = 'status-text connected'; txt.textContent = 'เชื่อมต่อแล้ว (Connected)';
     ver.textContent = data.model || 'EfficientNet-B0 Ready';
-  } catch(e) {
+  } catch (e) {
     dot.className = 'status-dot error';
-    txt.textContent = 'ไม่สามารถเชื่อมต่อ AI Server ได้';
-    txt.className = 'status-text error';
+    txt.className = 'status-text error'; txt.textContent = 'ไม่สามารถเชื่อมต่อ AI Server ได้';
     ver.textContent = 'ตรวจสอบ ngrok URL';
   }
 }
 
-// เช็คสถานะการเชื่อมต่อ Wi-Fi กับ ESP32
-async function checkEspConnection() {
-  const dot = document.getElementById('espStatusDot');
-  const txt = document.getElementById('espStatusText');
-  const recDot = document.getElementById('recEspDot');
-  const recTxt = document.getElementById('recEspText');
-  const btn = document.getElementById('btnRecord');
+// ================= Serial =================
+async function toggleSerialConnection() {
+  if (!('serial' in navigator)) {
+    alert('เบราว์เซอร์นี้ไม่รองรับ Web Serial\nกรุณาใช้ Google Chrome หรือ Microsoft Edge บนคอมพิวเตอร์');
+    return;
+  }
+  if (serialPort) { await disconnectSerial(); toast('🔌 ตัดการเชื่อมต่อแล้ว'); return; }
 
   try {
-    const res = await fetch(ESP_IP + '/ping', { signal: AbortSignal.timeout(2000) });
-    if (res.ok) {
-      if (dot) { dot.className = 'status-dot connected'; txt.className = 'status-text connected'; txt.textContent = 'เชื่อมต่อกับ ESP32 สำเร็จ'; }
-      if (recDot) { recDot.className = 'status-dot connected'; recTxt.className = 'status-text connected'; recTxt.textContent = '🟢 เชื่อมต่อ Wi-Fi ESP32 แล้ว พร้อมบันทึก'; }
-      if (!isRecording && btn) btn.disabled = false;
-    } else { throw new Error(); }
-  } catch(e) {
-    if (dot) { dot.className = 'status-dot error'; txt.className = 'status-text error'; txt.textContent = 'ยังไม่ได้เชื่อมต่อ Wi-Fi ESP32'; }
-    if (recDot) { recDot.className = 'status-dot error'; recTxt.className = 'status-text error'; recTxt.textContent = '🔴 ยังไม่ได้เชื่อมต่อ Wi-Fi: ESP32_Heart_Monitor'; }
-    if (!isRecording && btn) btn.disabled = true;
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: BAUD_RATE, bufferSize: 65536 });
+    serialPort = port;
+    serialWriter = port.writable.getWriter();
+    updateSerialUI(true);
+    toast('🔌 เชื่อมต่อสำเร็จ');
+  } catch (err) {
+    console.error(err);
+    serialPort = null; serialWriter = null;
+    updateSerialUI(false);
+    let msg = err.message;
+    if (err.name === 'NotFoundError') msg = 'ยังไม่ได้เลือกพอร์ต';
+    else if (err.name === 'InvalidStateError' || err.name === 'NetworkError') msg = 'พอร์ตถูกใช้อยู่ ปิด Serial Monitor ใน Arduino ก่อน';
+    else if (err.name === 'SecurityError') msg = 'เบราว์เซอร์บล็อกพอร์ต';
+    toast('❌ ' + msg);
   }
 }
 
+async function disconnectSerial() {
+  stopRequested = true;
+  if (serialReader) { try { await serialReader.cancel(); } catch (e) {} }
+  await new Promise(r => setTimeout(r, 200));
+  if (serialWriter) {
+    try { await serialWriter.write(new TextEncoder().encode('X')); } catch (e) {}
+    try { serialWriter.releaseLock(); } catch (e) {}
+    serialWriter = null;
+  }
+  try { await serialPort.close(); } catch (e) { console.warn(e); }
+  serialPort = null;
+  updateSerialUI(false);
+}
+
+function updateSerialUI(ok) {
+  byId('espStatusDot').className = 'status-dot ' + (ok ? 'connected' : 'error');
+  byId('espStatusText').className = 'status-text ' + (ok ? 'connected' : 'error');
+  byId('espStatusText').textContent = ok ? 'เชื่อมต่อพอร์ต USB เรียบร้อย' : 'ยังไม่ได้เชื่อมต่อพอร์ต USB';
+  byId('recEspDot').className = 'status-dot ' + (ok ? 'connected' : 'error');
+  byId('recEspText').className = 'status-text ' + (ok ? 'connected' : 'error');
+  byId('recEspText').textContent = ok ? '🟢 เชื่อมต่อแล้ว พร้อมตรวจ' : '🔴 ยังไม่ได้เชื่อมต่อพอร์ต USB';
+  const b = byId('btnConnectSerial');
+  b.textContent = ok ? '🔌 ตัดการเชื่อมต่อ' : '🔌 เชื่อมต่อพอร์ต';
+  b.classList.toggle('connected', ok);
+  if (!isRecording) setHint(ok ? 'กด START เพื่อเช็กตำแหน่งและอัดเสียงอัตโนมัติ' : 'กด "เชื่อมต่อพอร์ต" ที่หน้าหลักก่อน แล้วกลับมากด START');
+}
+
+function sendCmd(c) {
+  if (!serialWriter) return Promise.resolve();
+  return serialWriter.write(new TextEncoder().encode(c)).catch(e => console.warn('send fail', e));
+}
+function setHint(t) { byId('recordHint').textContent = t; }
+function setDebug(t) { byId('debugInfo').textContent = t; }
+function setProgress(f) {
+  f = Math.max(0, Math.min(1, f));
+  byId('progressFill').style.width = (f * 100) + '%';
+  byId('timerText').textContent = `00:0${Math.floor(f * RECORD_SEC)} / 00:0${RECORD_SEC}`;
+}
+
+// ================= วาดคลื่นเสียงจริง =================
 function setupWaveCanvas() {
-  const canvas = document.getElementById('waveCanvas');
+  const canvas = byId('waveCanvas');
   const ctx = canvas.getContext('2d');
-  let t = 0;
   function draw() {
     const W = canvas.offsetWidth, H = canvas.offsetHeight;
     if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
     ctx.clearRect(0, 0, W, H);
-    if (!isRecording) {
-      ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
-      ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke(); ctx.setLineDash([]);
+    if (!isRecording || !hasLive) {
+      ctx.strokeStyle = '#cbd5e0'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(0, H / 2); ctx.lineTo(W, H / 2); ctx.stroke(); ctx.setLineDash([]);
     } else {
-      ctx.strokeStyle = '#e53e3e'; ctx.lineWidth = 2.5; ctx.beginPath();
-      for (let x = 0; x <= W; x++) {
-        const a1 = 0.5 * Math.sin(x*0.06 + t) * H/2;
-        const a2 = 0.3 * Math.sin(x*0.12 + t*1.5) * H/2;
-        const y = H/2 + a1 + a2;
+      let peak = 500;
+      for (let i = 0; i < LIVE_LEN; i++) { const a = Math.abs(liveBuf[i]); if (a > peak) peak = a; }
+      ctx.strokeStyle = isCapturing ? '#e53e3e' : '#3182ce';
+      ctx.lineWidth = 1.5; ctx.beginPath();
+      for (let x = 0; x < W; x++) {
+        const idx = (livePos + Math.floor(x / W * LIVE_LEN)) % LIVE_LEN;
+        const y = H / 2 - (liveBuf[idx] / peak) * (H / 2 - 4);
         x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
-      ctx.stroke(); t += 0.12;
+      ctx.stroke();
     }
-    waveAnimFrame = requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   }
-  if (waveAnimFrame) cancelAnimationFrame(waveAnimFrame);
   draw();
 }
 
-// ดึงสตรีมเสียงสดจากฮาร์ดแวร์ ESP32 มาทำเป็นไฟล์ WAV
-async function startEspRecord() {
-  if (isRecording) return;
-  isRecording = true;
-  recordSeconds = 0;
+// ================= ฟิลเตอร์ + เช็กคุณภาพสัญญาณ =================
+function biquadCoeffs(type, fc, fs, Q = 0.7071) {
+  const w0 = 2 * Math.PI * fc / fs;
+  const c = Math.cos(w0), alpha = Math.sin(w0) / (2 * Q), a0 = 1 + alpha;
+  let b0, b1, b2;
+  if (type === 'lowpass') { b0 = (1 - c) / 2; b1 = 1 - c; b2 = (1 - c) / 2; }
+  else { b0 = (1 + c) / 2; b1 = -(1 + c); b2 = (1 + c) / 2; }
+  return { b0: b0 / a0, b1: b1 / a0, b2: b2 / a0, a1: (-2 * c) / a0, a2: (1 - alpha) / a0 };
+}
 
-  document.getElementById('btnRecord').classList.add('recording');
-  document.getElementById('btnRecordLabel').textContent = 'REC';
-  document.getElementById('recordHint').textContent = 'กำลังรับสัญญาณจากอุปกรณ์ ห้ามขยับ...';
-  document.getElementById('liveBadge').classList.add('show');
-  updateTimer();
+function applyFilter(x, k) {
+  const y = new Float64Array(x.length);
+  let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+  for (let i = 0; i < x.length; i++) {
+    const v = k.b0 * x[i] + k.b1 * x1 + k.b2 * x2 - k.a1 * y1 - k.a2 * y2;
+    x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v;
+  }
+  return y;
+}
+
+function checkHeartSignal(samples, fs) {
+  const N = samples.length;
+  let clip = 0, mean = 0;
+  for (let i = 0; i < N; i++) { if (Math.abs(samples[i]) >= 32000) clip++; mean += samples[i]; }
+  mean /= N;
+
+  const x = new Float64Array(N);
+  let totalE = 0;
+  for (let i = 0; i < N; i++) { x[i] = (samples[i] - mean) / 32768; totalE += x[i] * x[i]; }
+
+  let band = applyFilter(x, biquadCoeffs('highpass', 25, fs));
+  band = applyFilter(band, biquadCoeffs('lowpass', 150, fs));
+  let bandE = 0;
+  for (let i = 0; i < N; i++) bandE += band[i] * band[i];
+
+  const clipRatio = clip / N;
+  const bandRms = Math.sqrt(bandE / N);
+  const bandRatio = bandE / (totalE + 1e-12);
+
+  const envFull = applyFilter(band.map(Math.abs), biquadCoeffs('lowpass', 8, fs));
+  const step = fs / 100, M = Math.floor(N / step);
+  const env = new Float64Array(M);
+  let em = 0;
+  for (let i = 0; i < M; i++) { env[i] = envFull[i * step]; em += env[i]; }
+  em /= M;
+  let e0 = 0;
+  for (let i = 0; i < M; i++) { env[i] -= em; e0 += env[i] * env[i]; }
+
+  let periodicity = 0, bestLag = 0;
+  for (let lag = 33; lag <= 150 && lag < M - 10; lag++) {
+    let s = 0;
+    for (let i = 0; i + lag < M; i++) s += env[i] * env[i + lag];
+    const r = (s / (M - lag)) / (e0 / M + 1e-12);
+    if (r > periodicity) { periodicity = r; bestLag = lag; }
+  }
+  const bpm = bestLag ? Math.round(6000 / bestLag) : 0;
+  const metrics = { clipRatio, bandRms, bandRatio, periodicity, bpm };
+
+  // ===== เกณฑ์ (ปรับให้เข้ากับไมค์ของคุณได้) =====
+  if (clipRatio > 0.01)   return { ok: false, reason: '⚠️ เสียงแตก ลองกดเบาลง', metrics };
+  if (bandRms < 0.002)    return { ok: false, reason: '🔈 เสียงเบาเกินไป แนบผิวให้สนิท', metrics };
+  if (bandRatio < 0.4)    return { ok: false, reason: '📢 เสียงรบกวนเยอะ อยู่นิ่งๆ', metrics };
+  if (periodicity < 0.35) return { ok: false, reason: '📍 ยังไม่พบจังหวะหัวใจ ลองขยับตำแหน่ง', metrics };
+  return { ok: true, reason: `✅ ตำแหน่งดี (~${bpm} BPM)`, metrics };
+}
+
+// ================= ปุ่ม START: เช็กตำแหน่ง → อัด 5 วิ =================
+async function startSmartRecord() {
+  if (isRecording) { stopRequested = true; setHint('⏹️ กำลังยกเลิก...'); return; } // กดซ้ำ = ยกเลิก
+  if (!serialPort || !serialWriter) {
+    toast('⚠️ ยังไม่ได้เชื่อมต่อพอร์ต USB');
+    showPage('home', document.querySelectorAll('.nav-tab')[0]);
+    return;
+  }
+
+  currentFile = null;
+  byId('selectedFile').hidden = true;
+  byId('btnAnalyze').hidden = true;
+  byId('btnDownload').hidden = true;
+
+  isRecording = true; isCapturing = false; stopRequested = false; skipCheck = false;
+  hasLive = false; liveBuf.fill(0);
+  byId('btnRecord').classList.add('recording');
+  byId('btnRecordLabel').textContent = 'CHECK';
+  byId('liveBadge').classList.add('show');
+  byId('btnSkip').hidden = false;
+  setProgress(0);
+  setHint('⏳ กำลังเริ่มรับสัญญาณจาก ESP32...');
+  setDebug('');
+
+  const NEED = FS * RECORD_SEC;
+  let synced = false, syncPos = 0, leftover = null;
+  let checkBuf = [], sinceCheck = 0, good = 0;
+  let recording = null;
+  let totalBytes = 0, failReason = '', resent = false, lastMetrics = '';
+  const t0 = performance.now();
+
+  const cancelRead = (reason) => {
+    if (!failReason) failReason = reason;
+    if (serialReader) serialReader.cancel().catch(() => {});
+  };
+  const startCapture = (msg) => {
+    recording = [];
+    isCapturing = true;
+    byId('btnRecordLabel').textContent = 'REC';
+    byId('btnSkip').hidden = true;
+    setHint(msg);
+  };
+
+  // ตัวเฝ้าระวัง กันค้างเงียบ
+  const watchdog = setInterval(() => {
+    const sec = (performance.now() - t0) / 1000;
+    if (stopRequested) return cancelRead('cancel');
+    if (totalBytes === 0 && sec > 1.5 && !resent) { resent = true; sendCmd('C'); }
+    if (totalBytes === 0 && sec > 4) return cancelRead('noData');
+    if (!synced && totalBytes > 0 && sec > 6) return cancelRead('noSync');
+    if (!recording && sec > TIMEOUT_SEC) return cancelRead('timeout');
+    setDebug(`📶 รับ ${(totalBytes / 1024).toFixed(0)} KB · ซิงก์ ${synced ? '✓' : '✗'}${lastMetrics ? ' · ' + lastMetrics : ''}`);
+  }, 250);
 
   try {
-    const response = await fetch(ESP_IP + '/stream');
-    const reader = response.body.getReader();
-    const totalBytes = ESP_SAMPLE_RATE * 2 * MAX_RECORD;
-    let chunks = [];
-    let receivedLength = 0;
+    serialReader = serialPort.readable.getReader();
+    await sendCmd('C'); // สั่ง ESP32 สตรีมต่อเนื่อง
 
-    recordTimer = setInterval(() => {
-      recordSeconds++;
-      updateTimer();
-    }, 1000);
-
-    while (isRecording) {
-      const { done, value } = await reader.read();
+    while (true) {
+      const { value, done } = await serialReader.read();
       if (done) break;
-      chunks.push(value);
-      receivedLength += value.length;
-      if (receivedLength >= totalBytes || recordSeconds >= MAX_RECORD) {
-        reader.cancel();
-        break;
+      if (!value || !value.length) continue;
+      totalBytes += value.length;
+      let bytes = value;
+
+      // หารหัสซิงก์
+      if (!synced) {
+        let i = 0;
+        for (; i < bytes.length && !synced; i++) {
+          if (bytes[i] === SYNC[syncPos]) syncPos++;
+          else syncPos = (bytes[i] === SYNC[0]) ? 1 : 0;
+          if (syncPos === 4) synced = true;
+        }
+        if (!synced) continue;
+        bytes = bytes.slice(i);
+        setHint('🔍 กำลังเช็กตำแหน่ง... วางหัวฟังให้แนบหน้าอก อยู่นิ่งๆ');
+      }
+
+      // แปลงไบต์เป็น Int16
+      if (leftover) {
+        const m = new Uint8Array(leftover.length + bytes.length);
+        m.set(leftover); m.set(bytes, leftover.length);
+        bytes = m; leftover = null;
+      }
+      const n = bytes.length >> 1;
+      if (bytes.length & 1) leftover = bytes.slice(bytes.length - 1);
+      const dv = new DataView(bytes.buffer, bytes.byteOffset, n * 2);
+
+      for (let i = 0; i < n; i++) {
+        const s = dv.getInt16(i * 2, true);
+        liveBuf[livePos] = s; livePos = (livePos + 1) % LIVE_LEN;
+        if (recording) recording.push(s);
+        else { checkBuf.push(s); sinceCheck++; }
+      }
+      if (n > 0) hasLive = true;
+
+      // โหมดอัดจริง
+      if (recording) {
+        setProgress(recording.length / NEED);
+        if (recording.length >= NEED) break;
+        continue;
+      }
+
+      // กดข้ามการเช็ก
+      if (skipCheck) { startCapture('⏩ ข้ามการเช็ก กำลังอัด 5 วินาที...'); continue; }
+
+      // โหมดเช็กตำแหน่ง
+      if (checkBuf.length > FS * CHECK_SEC * 2) checkBuf = checkBuf.slice(-FS * CHECK_SEC);
+      if (checkBuf.length < FS * CHECK_SEC) {
+        setHint(`🔍 กำลังฟังสัญญาณ... ${Math.round(checkBuf.length / (FS * CHECK_SEC) * 100)}%`);
+        continue;
+      }
+      if (sinceCheck >= FS / 2) {
+        sinceCheck = 0;
+        const r = checkHeartSignal(Int16Array.from(checkBuf.slice(-FS * CHECK_SEC)), FS);
+        const m = r.metrics;
+        console.log('SQI', m);
+        lastMetrics = `RMS ${m.bandRms.toFixed(4)} · ย่านหัวใจ ${(m.bandRatio * 100).toFixed(0)}% · จังหวะ ${m.periodicity.toFixed(2)} · ${m.bpm} BPM`;
+        good = r.ok ? good + 1 : 0;
+        if (good >= GOOD_NEEDED) startCapture('✅ ตำแหน่งถูกต้อง! กำลังอัด 5 วินาที ห้ามขยับ');
+        else setHint(r.ok ? `${r.reason} (ยืนยัน ${good}/${GOOD_NEEDED})` : r.reason);
       }
     }
-
-    stopEspRecordProcess(chunks, receivedLength);
   } catch (err) {
     console.error(err);
-    stopEspRecordProcess([], 0, true);
-    toast('❌ สตรีมเสียงจาก ESP32 ขัดข้อง');
-  }
-}
-
-function stopEspRecordProcess(chunks, totalLength, isError = false) {
-  isRecording = false;
-  clearInterval(recordTimer);
-
-  document.getElementById('btnRecord').classList.remove('recording');
-  document.getElementById('btnRecordLabel').textContent = 'START';
-  document.getElementById('recordHint').textContent = 'บันทึกเสร็จสิ้น สามารถกดวิเคราะห์ได้เลย';
-  document.getElementById('liveBadge').classList.remove('show');
-
-  if (isError || totalLength === 0) return;
-
-  let audioData = new Uint8Array(totalLength);
-  let position = 0;
-  for (let chunk of chunks) {
-    audioData.set(chunk, position);
-    position += chunk.length;
+    if (!failReason) failReason = 'error';
+  } finally {
+    clearInterval(watchdog);
+    await sendCmd('X'); // สั่งหยุดสตรีม
+    if (serialReader) {
+      try { await serialReader.cancel(); } catch (e) {} // ล้างข้อมูลค้าง
+      try { serialReader.releaseLock(); } catch (e) {}
+      serialReader = null;
+    }
   }
 
-  let wavHeader = createWavHeader(audioData.length, ESP_SAMPLE_RATE);
-  let wavBlob = new Blob([wavHeader, audioData], { type: 'audio/wav' });
-  currentFile = new File([wavBlob], "esp_heart.wav", { type: 'audio/wav' });
-
-  const el = document.getElementById('selectedFile');
-  el.textContent = '📡 เสียงจาก ESP32 (.wav) (' + (currentFile.size/1024).toFixed(1) + ' KB)';
-  el.style.display = 'block';
-  document.getElementById('btnAnalyze').style.display = 'block';
-  toast('บันทึกเสียงจากฮาร์ดแวร์สำเร็จ!');
+  finishRecording(recording, failReason);
 }
 
-function updateTimer() {
-  const pct = Math.min((recordSeconds / MAX_RECORD) * 100, 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('timerText').textContent = `00:${String(recordSeconds).padStart(2,'0')} / 00:${String(MAX_RECORD).padStart(2,'0')}`;
+function finishRecording(recording, failReason) {
+  isRecording = false; isCapturing = false; stopRequested = false;
+  byId('btnRecord').classList.remove('recording');
+  byId('btnRecordLabel').textContent = 'START';
+  byId('liveBadge').classList.remove('show');
+  byId('btnSkip').hidden = true;
+
+  const NEED = FS * RECORD_SEC;
+  if (!recording || recording.length < NEED) {
+    const msgs = {
+      noData:  '❌ ไม่ได้รับข้อมูลจาก ESP32 → อัปโหลดโค้ด ESP32 ใหม่ แล้วกดปุ่ม EN/RST บนบอร์ด แล้วเชื่อมต่อใหม่',
+      noSync:  '❌ ได้ข้อมูลแต่อ่านไม่ออก → เช็กว่า ESP32 ใช้ Serial.begin(921600)',
+      timeout: '⏱️ หาตำแหน่งไม่เจอใน 30 วินาที → ลองขยับ หรือกด "ข้ามการเช็ก อัดเลย"',
+      cancel:  '⏹️ ยกเลิกแล้ว',
+      error:   '❌ อ่านพอร์ตขัดข้อง → ตัดการเชื่อมต่อแล้วเชื่อมใหม่'
+    };
+    const msg = msgs[failReason] || '⏹️ หยุดการบันทึก';
+    setHint(msg);
+    if (failReason && failReason !== 'cancel') toast(msg.split('→')[0].trim());
+    return;
+  }
+
+  const pcm = Int16Array.from(recording.slice(0, NEED));
+  const bytes = new Uint8Array(pcm.buffer);
+  const wavBlob = new Blob([createWavHeader(bytes.length, FS), bytes], { type: 'audio/wav' });
+  currentFile = new File([wavBlob], 'esp_heart.wav', { type: 'audio/wav' });
+
+  const el = byId('selectedFile');
+  el.textContent = '📡 เสียงจาก ESP32 (.wav) ' + (currentFile.size / 1024).toFixed(1) + ' KB';
+  el.hidden = false;
+  byId('btnAnalyze').hidden = false;
+  byId('btnDownload').hidden = false;
+  setProgress(1);
+  setHint('✅ อัดเสร็จ! กด "วิเคราะห์ด้วย AI" ด้านล่างได้เลย');
+  toast('✅ บันทึกเสียง 5 วินาทีสำเร็จ');
 }
 
 function createWavHeader(dataSize, sampleRate) {
-  let buffer = new ArrayBuffer(44);
-  let view = new DataView(buffer);
-  function writeString(view, offset, string) {
-    for (let i = 0; i < string.length; i++) {
-      view.setUint8(offset + i, string.charCodeAt(i));
-    }
-  }
-  writeString(view, 0, 'RIFF');
-  view.setUint32(4, 36 + dataSize, true);
-  writeString(view, 8, 'WAVE');
-  writeString(view, 12, 'fmt ');
-  view.setUint32(16, 16, true);
-  view.setUint16(20, 1, true); // PCM
-  view.setUint16(22, 1, true); // Mono
-  view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * 2, true);
-  view.setUint16(32, 2, true);
-  view.setUint16(34, 16, true); // 16-bit
-  writeString(view, 36, 'data');
-  view.setUint32(40, dataSize, true);
+  const view = new DataView(new ArrayBuffer(44));
+  const ws = (o, s) => { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); };
+  ws(0, 'RIFF'); view.setUint32(4, 36 + dataSize, true);
+  ws(8, 'WAVE'); ws(12, 'fmt ');
+  view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+  view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+  ws(36, 'data'); view.setUint32(40, dataSize, true);
   return view;
 }
 
+// ================= ไฟล์ / วิเคราะห์ =================
 function onFileSelect(e) {
   const f = e.target.files[0];
   if (!f) return;
   currentFile = f;
-  const el = document.getElementById('selectedFile');
-  el.textContent = '📎 ' + f.name + ' (' + (f.size/1024).toFixed(1) + ' KB)';
-  el.style.display = 'block';
-  document.getElementById('btnAnalyze').style.display = 'block';
+  const el = byId('selectedFile');
+  el.textContent = '📎 ' + f.name + ' (' + (f.size / 1024).toFixed(1) + ' KB)';
+  el.hidden = false;
+  byId('btnAnalyze').hidden = false;
+  byId('btnDownload').hidden = false;
+}
+
+function downloadAudioFile() {
+  if (!currentFile) { toast('ยังไม่มีไฟล์เสียง'); return; }
+  const url = URL.createObjectURL(currentFile);
+  const a = document.createElement('a');
+  a.href = url; a.download = currentFile.name || 'heart_sound.wav';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  toast('📥 ดาวน์โหลดสำเร็จ');
 }
 
 async function analyzeFile() {
   if (!currentFile) { toast('กรุณาเลือกไฟล์หรืออัดเสียงก่อน'); return; }
   showSpinner('กำลังส่งเสียงวิเคราะห์...');
-  const form = new FormData(); form.append('file', currentFile);
+  const form = new FormData();
+  form.append('file', currentFile);
   try {
-    const res = await fetch(apiUrl + '/predict', { method: 'POST', headers: NGROK_HEADERS, body: form });
+    const res = await fetch(API_URL + '/predict', { method: 'POST', headers: NGROK_HEADERS, body: form });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Server error');
     hideSpinner();
     showResult(data);
-  } catch(e) {
+  } catch (e) {
     hideSpinner();
     toast('❌ เกิดข้อผิดพลาด: ' + e.message);
   }
@@ -718,58 +777,49 @@ function showResult(data) {
   const label = data.label;
   const conf = (data.confidence * 100).toFixed(1);
   const prob = (data.probability_normal * 100).toFixed(1);
-
-  let cls = label === 'Normal' ? 'normal' : 'abnormal';
-  let th = label === 'Normal' ? 'ปกติ (Normal)' : 'ผิดปกติ (Abnormal)';
-  let icon = label === 'Normal' ? '✓' : '!';
-  let desc = label === 'Normal' ? 'ไม่พบความผิดปกติ' : 'ตรวจพบความผิดปกติ ควรพบแพทย์';
+  const isN = label === 'Normal';
+  const cls = isN ? 'normal' : 'abnormal';
+  const th = isN ? 'ปกติ (Normal)' : 'ผิดปกติ (Abnormal)';
+  const icon = isN ? '✓' : '!';
+  const desc = isN ? 'ไม่พบความผิดปกติ' : 'ตรวจพบความผิดปกติ ควรพบแพทย์';
 
   setBadge('resultBadge', cls, icon, th, desc);
-  document.getElementById('resConf').textContent = conf + '%';
-  document.getElementById('resProb').textContent = prob + '%';
+  byId('resConf').textContent = conf + '%';
+  byId('resProb').textContent = prob + '%';
 
   if (data.spectrogram) {
-    document.getElementById('specImg').src = 'data:image/png;base64,' + data.spectrogram;
-    document.getElementById('specCard').hidden = false;
+    byId('specImg').src = 'data:image/png;base64,' + data.spectrogram;
+    byId('specCard').hidden = false;
   }
 
   const risk = Math.round((1 - data.probability_normal) * 100);
-  document.getElementById('gaugeNeedle').setAttribute('transform', `rotate(${-90 + (risk/100)*180}, 120, 110)`);
-  document.getElementById('gaugeText').textContent = risk + '%';
+  byId('gaugeNeedle').setAttribute('transform', `rotate(${-90 + (risk / 100) * 180}, 120, 110)`);
+  byId('gaugeText').textContent = risk + '%';
+  byId('riskLabel').textContent = risk < 35 ? 'ความเสี่ยงต่ำ' : risk < 65 ? 'ความเสี่ยงปานกลาง' : 'ความเสี่ยงสูง ควรพบแพทย์';
 
   setBadge('homeResultBadge', cls, icon, th, desc);
-  document.getElementById('homeConf').textContent = conf + '%';
+  byId('homeConf').textContent = conf + '%';
   const now = new Date();
-  document.getElementById('homeTime').textContent = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  byId('homeTime').textContent = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
 
-  const profile = JSON.parse(localStorage.getItem('melody_profile') || '{}');
-  addHistory({
-    name: profile.name || 'ไม่ระบุชื่อ',
-    age: profile.age || '-',
-    gender: profile.gender || '-',
-    group: profile.group || '-',
-    label, cls, conf, time: now.toISOString()
-  });
+  const p = JSON.parse(localStorage.getItem('melody_profile') || '{}');
+  addHistory({ name: p.name || 'ไม่ระบุชื่อ', age: p.age || '-', gender: p.gender || '-', group: p.group || '-', label, cls, conf, time: now.toISOString() });
 
   showPage('results', document.querySelectorAll('.nav-tab')[2]);
-  toast(label === 'Normal' ? '✅ ผลปกติ' : '⚠️ พบความผิดปกติ!');
+  toast(isN ? '✅ ผลปกติ' : '⚠️ พบความผิดปกติ!');
 }
 
 function setBadge(id, cls, icon, h4, p) {
-  const el = document.getElementById(id);
+  const el = byId(id);
   el.className = 'result-badge ' + cls;
   el.querySelector('.badge-icon').textContent = icon;
   el.querySelector('.badge-info h4').textContent = h4;
   el.querySelector('.badge-info p').textContent = p;
 }
 
+// ================= โปรไฟล์ / ประวัติ =================
 function saveProfile() {
-  const p = {
-    name: document.getElementById('pName').value.trim(),
-    age: document.getElementById('pAge').value.trim(),
-    gender: document.getElementById('pGender').value,
-    group: document.getElementById('pGroup').value,
-  };
+  const p = { name: byId('pName').value.trim(), age: byId('pAge').value.trim(), gender: byId('pGender').value, group: byId('pGroup').value };
   localStorage.setItem('melody_profile', JSON.stringify(p));
   toast('💾 บันทึกโปรไฟล์เรียบร้อย');
   showPage('home', document.querySelectorAll('.nav-tab')[0]);
@@ -781,6 +831,7 @@ function addHistory(item) {
   localStorage.setItem('melody_history', JSON.stringify(scanHistory));
   renderHistory();
 }
+
 function clearHistory() {
   scanHistory = [];
   localStorage.removeItem('melody_history');
@@ -789,43 +840,38 @@ function clearHistory() {
 }
 
 function renderHistory() {
-  const el = document.getElementById('historyList');
-  if (!scanHistory.length) {
-    el.innerHTML = '<div class="hist-empty">📋 ยังไม่มีประวัติการตรวจ</div>';
-    return;
-  }
+  const el = byId('historyList');
+  if (!scanHistory.length) { el.innerHTML = '<div class="hist-empty">📋 ยังไม่มีประวัติการตรวจ</div>'; return; }
   el.innerHTML = scanHistory.map(h => {
     const d = new Date(h.time);
-    const dateStr = d.toLocaleDateString('th-TH', {day:'numeric', month:'short', year:'2-digit'});
-    const timeStr = d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
-    const badgeText = h.label === 'Normal' ? 'ปกติ' : 'ผิดปกติ';
+    const dateStr = d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' });
+    const timeStr = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
     return `<div class="history-card">
       <div class="history-card-top">
         <span class="history-name">👤 ${h.name}</span>
-        <span class="hist-badge ${h.cls}">${badgeText}</span>
+        <span class="hist-badge ${h.cls}">${h.label === 'Normal' ? 'ปกติ' : 'ผิดปกติ'}</span>
       </div>
       <div class="history-details">
         <span>อายุ: <strong>${h.age} ปี</strong></span>
         <span>เพศ: <strong>${h.gender}</strong></span>
         <span>กลุ่ม: <strong>${h.group}</strong></span>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-        <span style="font-size:11px; color:var(--accent);">Confidence: ${h.conf}%</span>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;">
+        <span style="font-size:11px;color:var(--accent);">Confidence: ${h.conf}%</span>
         <span class="history-time">🕒 ${dateStr} (${timeStr})</span>
       </div>
     </div>`;
   }).join('');
 }
 
-function showSpinner(msg) {
-  document.getElementById('spinnerMsg').textContent = msg || 'กำลังดำเนินการ...';
-  document.getElementById('spinner').hidden = false;
-}
-function hideSpinner() { document.getElementById('spinner').hidden = true; }
+function showSpinner(msg) { byId('spinnerMsg').textContent = msg || 'กำลังดำเนินการ...'; byId('spinner').hidden = false; }
+function hideSpinner() { byId('spinner').hidden = true; }
 function toast(msg) {
-  const el = document.getElementById('toast');
+  const el = byId('toast');
   el.textContent = msg; el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3200);
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 3200);
 }
 </script>
-</body></html>
+</body>
+</html>
